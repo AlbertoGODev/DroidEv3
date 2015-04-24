@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">DroidEv3</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="connect">Conectar</string>
+    <string name="connecting">Conectando</string>
+    <string name="enter_ip">Introducir IP  ej: 10.0.0.1</string>
+    <string name="test">Probando Droidev3</string>
+    <string name="send">Enviar</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- form error -->
+    <string name="form_empty_field">Campo obligatorio</string>
+    <string name="form_ip_error">Ip mal formada</string>
+    <string name="form_connect_error">Fallo en la conexión</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+
+    <!--Navigation Drawer-->
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="title_translate">Traductor</string>
+    <string name="title_joystick">Joystick</string>
+    <string name="title_info">Información</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
