@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.droidev3.albertogarcia.droidev3" >
+    package="com.guerritastudio.albertogarcia.droidev3" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".app.MyApp"
+        android:name="com.guerritastudio.albertogarcia.droidev3.app.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.activity.ConnectActivity"
+            android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.ConnectActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.DrawerActivity"
+            android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity"
             android:label="@string/title_activity_drawer" >
         </activity>
     </application>

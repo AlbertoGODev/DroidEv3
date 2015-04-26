@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="@dimen/navigation_drawer_width"
+    android:paddingBottom="@dimen/margin_m"
+    android:paddingTop="@dimen/margin_m"
+    android:paddingLeft="@dimen/margin_l"
+    android:paddingRight="@dimen/margin_l"
+    android:layout_height="64dp">
+
+    <ImageView
+        android:id="@+id/row_menu_drawer_item_iv"
+        android:scaleType="centerCrop"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:layout_marginLeft="@dimen/margin_m"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_width="0dp"
+        android:layout_weight="7"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black"
+        android:text="Medium"
+        android:id="@+id/row_menu_drawer_item_tv" />
+
+    <!--<IconTextView
+        android:gravity="end"
+        android:layout_marginLeft="@dimen/margin_m"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"
+        android:text="{fa-angle-right}"
+        android:shadowColor="#22000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:textSize="22dp"
+        android:textColor="@color/black" />-->
+</LinearLayout>

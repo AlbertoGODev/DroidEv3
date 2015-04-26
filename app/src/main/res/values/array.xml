@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Navigation Drawer-->
+    <array name="menu_sections">
+        <item>Traductor</item>
+        <item>Joystick</item>
+        <item>Información</item>
+    </array>
+
+</resources>
