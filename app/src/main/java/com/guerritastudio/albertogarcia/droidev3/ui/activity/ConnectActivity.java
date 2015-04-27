@@ -2,12 +2,14 @@ package com.guerritastudio.albertogarcia.droidev3.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.guerritastudio.albertogarcia.droidev3.app.BaseActionBarActivity;
 import com.guerritastudio.albertogarcia.droidev3.app.Utils;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.task.ConnectionTask;
+import com.guerritastudio.albertogarcia.droidev3.ui.fragment.SearchEv3DialogFragment;
 
 import java.util.regex.Matcher;
 
@@ -28,6 +31,8 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
 
     private EditText ipAddressET;
     private Button connectBTN;
+    private Button searchBTN;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,12 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.connect_ev3_btn:
                 //Para entrar sin conectar:
-                startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
-                //connectWithEv3();
+                //startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
+                connectWithEv3();
+                return;
+            case R.id.search_ev3_btn:
+                DialogFragment dialogFragment = new SearchEv3DialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), SearchEv3DialogFragment.TAG);
         }
     }
 
@@ -62,11 +71,13 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         ipAddressET = (EditText) findViewById(R.id.connect_ipAddressET);
         ipAddressET.setFilters(Utils.getFilterIP());
         connectBTN = (Button) findViewById(R.id.connect_ev3_btn);
-
+        searchBTN = (Button) findViewById(R.id.search_ev3_btn);
+        progressBar = (ProgressBar)findViewById(R.id.connect_ev3_pbar);
     }
 
     private void setListeners() {
         connectBTN.setOnClickListener(this);
+        searchBTN.setOnClickListener(this);
         ipAddressET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -84,7 +95,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             if (!isTaskRun()) {
                 droidConnectTask = buildTask();
                 droidConnectTask.execute(ip);
-                connectBTN.setVisibility(View.INVISIBLE);
+                hideButtons();
             } else {
                 Toast.makeText(ConnectActivity.this, "conectando...", Toast.LENGTH_LONG).show();
             }
@@ -103,7 +114,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         ConnectionTask task = new ConnectionTask() {
             @Override
             public void onConnectedToDroid(DroidEv3 droidEv3) {
-                connectBTN.setVisibility(View.VISIBLE);
+                showButtons();
                 ConnectActivity.this.setDroidEv3(droidEv3);
                 startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
                 clearTask();
@@ -112,19 +123,30 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
 
             @Override
             public void onConnectionException(Exception e) {
-                connectBTN.setVisibility(View.VISIBLE);
+                showButtons();
                 Toast.makeText(ConnectActivity.this, getResources().getString(R.string.form_ip_exception), Toast.LENGTH_LONG).show();
                 clearTask();
             }
 
             @Override
             public void onConnectionError() {
-                connectBTN.setVisibility(View.VISIBLE);
+                showButtons();
                 Toast.makeText(ConnectActivity.this,getResources().getString(R.string.form_ip_not_discover) , Toast.LENGTH_LONG).show();
                 clearTask();
             }
         };
         return task;
+    }
+
+    private void showButtons() {
+        connectBTN.setVisibility(View.VISIBLE);
+        searchBTN.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+    private void hideButtons(){
+        connectBTN.setVisibility(View.GONE);
+        searchBTN.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 

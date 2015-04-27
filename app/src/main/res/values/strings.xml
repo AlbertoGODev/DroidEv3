@@ -9,6 +9,10 @@
     <string name="test">Probando Droidev3</string>
     <string name="send">Enviar</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="search">Buscar</string>
+    <string name="searching">Buscando Ev3</string>
+    <string name="cancel">Cancelar</string>
+
 
     <!-- form error -->
     <string name="form_empty_field">Campo obligatorio</string>
@@ -17,7 +21,7 @@
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="form_ip_not_discover">No se ha encontrado esa IPv4</string>
     <string name="form_ip_exception">Fallo en la conexión, vuelva a intentarlo más tarde</string>
-
+    <string name="form_brick_not_found">No se encontró ningún Ev3</string>
     <!--Navigation Drawer-->
     <string name="navigation_drawer_open">Abrir menú lateral</string>
     <string name="navigation_drawer_close">Cerrar menú lateral</string>
