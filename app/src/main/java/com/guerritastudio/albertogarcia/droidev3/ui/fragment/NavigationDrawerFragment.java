@@ -1,6 +1,7 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.fragment;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
+import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -20,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,7 +32,7 @@ import android.widget.TextView;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends BaseFragment {
 
     /**
      * Remember the position of the selected item.
@@ -337,6 +337,8 @@ public class NavigationDrawerFragment extends Fragment {
                 TextView ipAddressTV = (TextView) convertView.findViewById(R.id.row_menu_drawer_header_ip_address);
 
                 //TODO Set name and ip from ev3:
+                nameTV.setText(getDroidEv3().getBrickInfo().getName());
+                ipAddressTV.setText(getDroidEv3().getBrickInfo().getIPAddress());
 
 
             } else if (getItemViewType(position) == MENU_SECTIONS_ROW) {

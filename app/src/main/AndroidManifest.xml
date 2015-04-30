@@ -23,6 +23,12 @@
             android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity"
             android:label="@string/title_activity_drawer" >
         </activity>
+
+        <!--Para probar joystick-->
+        <activity
+            android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.JoystickViewDemoActivity"
+            android:label="@string/title_activity_drawer" >
+        </activity>
     </application>
 
 </manifest>

@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
+import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
 
-public class InfoFragment extends Fragment {
+public class InfoFragment extends BaseFragment {
 
     public static InfoFragment newInstance(int sectionNumber) {
         InfoFragment fragment = new InfoFragment();

@@ -2,8 +2,8 @@
 
 *//**
  * Created by AlbertoGarcia on 23/4/15.
- *//*
-    import java.io.IOException;
+ */
+/*    import java.io.IOException;
     import lejos.hardware.Audio;
     import lejos.remote.ev3.RemoteRequestEV3;
     import lejos.robotics.RegulatedMotor;
@@ -16,7 +16,7 @@
     import android.widget.Button;
     import android.widget.Toast;
 
-    public class Pruebas extends Activity implements OnClickListener {
+    public class Notas extends Activity implements OnClickListener {
 
         private RemoteRequestEV3 ev3;
         private RegulatedMotor left, right;
@@ -117,8 +117,8 @@
             }
 
             protected void onPostExecute(Long result) {
-                if (result == 1l) Toast.makeText(Pruebas.this, "Could not connect to EV3", Toast.LENGTH_LONG).show();
-                else if (result == 2l) Toast.makeText(Pruebas.this, "Not connected", Toast.LENGTH_LONG).show();
+                if (result == 1l) Toast.makeText(Notas.this, "Could not connect to EV3", Toast.LENGTH_LONG).show();
+                else if (result == 2l) Toast.makeText(Notas.this, "Not connected", Toast.LENGTH_LONG).show();
             }
         }
 

@@ -37,17 +37,24 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:background="@android:color/darker_gray"/>
-        <ListView
-            android:id="@+id/fragment_search_dialog_lv"
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_search_dialog_SRL"
             android:layout_margin="@dimen/margin_m"
             android:layout_width="wrap_content"
-            android:layout_height="200dp">
+            android:layout_height="128dp">
+
+        <ListView
+            android:id="@+id/fragment_search_dialog_lv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
         </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
         <TextView
             android:id="@+id/fragment_search_ev3_not_found_tv"
             android:visibility="gone"
@@ -58,7 +65,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/form_brick_not_found"/>
-
     </RelativeLayout>
 
 

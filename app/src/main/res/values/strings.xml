@@ -5,14 +5,25 @@
     <string name="action_settings">Settings</string>
     <string name="connect">Conectar</string>
     <string name="connecting">Conectando</string>
+    <string name="disconnect">Desconectar</string>
     <string name="enter_ip">Introducir IP  ej: 10.0.0.1</string>
     <string name="test">Probando Droidev3</string>
     <string name="send">Enviar</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="search">Buscar</string>
     <string name="searching">Buscando Ev3</string>
+    <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="disconnect_dialog">Se desconectará el robot, ¿está seguro?</string>
 
+    <!--Movements-->
+
+    <string name="stop">Detener</string>
+    <string name="forward">Adelante</string>
+    <string name="backward">Atrás</string>
+    <string name="left">Izquierda</string>
+    <string name="right">Derecha</string>
 
     <!-- form error -->
     <string name="form_empty_field">Campo obligatorio</string>
@@ -22,12 +33,22 @@
     <string name="form_ip_not_discover">No se ha encontrado esa IPv4</string>
     <string name="form_ip_exception">Fallo en la conexión, vuelva a intentarlo más tarde</string>
     <string name="form_brick_not_found">No se encontró ningún Ev3</string>
+
     <!--Navigation Drawer-->
     <string name="navigation_drawer_open">Abrir menú lateral</string>
     <string name="navigation_drawer_close">Cerrar menú lateral</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="front_lab">front_lab</string>
+    <string name="front_right_lab">front_right_lab</string>
+    <string name="right_lab">right_lab</string>
+    <string name="right_bottom_lab">right_bottom_lab</string>
+    <string name="bottom_lab">bottom_lab</string>
+    <string name="bottom_left_lab">bottom_left_lab</string>
+    <string name="left_lab">left_lab</string>
+    <string name="left_front_lab">left_front_lab</string>
+    <string name="center_lab">center_lab</string>
 
 
 </resources>

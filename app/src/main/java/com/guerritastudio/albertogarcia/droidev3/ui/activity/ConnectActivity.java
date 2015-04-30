@@ -22,8 +22,10 @@ import com.guerritastudio.albertogarcia.droidev3.ui.fragment.SearchEv3DialogFrag
 
 import java.util.regex.Matcher;
 
+import lejos.hardware.BrickInfo;
 
-public class ConnectActivity extends BaseActionBarActivity implements View.OnClickListener {
+
+public class ConnectActivity extends BaseActionBarActivity implements View.OnClickListener, SearchEv3DialogFragment.SearchEv3DialogListener {
 
     private static final String TAG = ConnectActivity.class.getSimpleName();
 
@@ -45,12 +47,12 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
 
     @Override
     protected void onDestroy() {
+        Log.e(TAG,"onDestroy");
         super.onDestroy();
         if (droidConnectTask != null) {
             droidConnectTask.cancel(true);
             droidConnectTask = null;
         }
-        this.disconnectDroidEv3();
     }
 
     @Override
@@ -62,9 +64,13 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
                 connectWithEv3();
                 return;
             case R.id.search_ev3_btn:
-                DialogFragment dialogFragment = new SearchEv3DialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), SearchEv3DialogFragment.TAG);
+                showSearchEv3Dialog();
         }
+    }
+
+    private void showSearchEv3Dialog() {
+        DialogFragment dialogFragment = new SearchEv3DialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), SearchEv3DialogFragment.TAG);
     }
 
     private void bindView() {
@@ -72,7 +78,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         ipAddressET.setFilters(Utils.getFilterIP());
         connectBTN = (Button) findViewById(R.id.connect_ev3_btn);
         searchBTN = (Button) findViewById(R.id.search_ev3_btn);
-        progressBar = (ProgressBar)findViewById(R.id.connect_ev3_pbar);
+        progressBar = (ProgressBar) findViewById(R.id.connect_ev3_pbar);
     }
 
     private void setListeners() {
@@ -116,6 +122,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             public void onConnectedToDroid(DroidEv3 droidEv3) {
                 showButtons();
                 ConnectActivity.this.setDroidEv3(droidEv3);
+                //startActivity(new Intent(ConnectActivity.this, JoystickViewDemoActivity.class));
                 startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
                 clearTask();
                 finish();
@@ -131,7 +138,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             @Override
             public void onConnectionError() {
                 showButtons();
-                Toast.makeText(ConnectActivity.this,getResources().getString(R.string.form_ip_not_discover) , Toast.LENGTH_LONG).show();
+                Toast.makeText(ConnectActivity.this, getResources().getString(R.string.form_ip_not_discover), Toast.LENGTH_LONG).show();
                 clearTask();
             }
         };
@@ -143,7 +150,8 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         searchBTN.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
-    private void hideButtons(){
+
+    private void hideButtons() {
         connectBTN.setVisibility(View.GONE);
         searchBTN.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
@@ -165,6 +173,25 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         }
         return true;
 
+    }
+
+    /*
+    The dialog fragment receives a reference to this Activity through the
+    Fragment.onAttach() callback, which it uses to call the following methods
+    defined by the SearchEv3DialogFragment.SearchEv3DialogListener interface
+    */
+
+    @Override
+    public void onDialogPositiveClick(BrickInfo brickInfo) {
+        // User touched the dialog's positive button
+        Log.d(TAG, "onDialogPositiveClick() brickInfo ipAddress: "+brickInfo.getIPAddress());
+        ipAddressET.setText(brickInfo.getIPAddress());
+    }
+
+    @Override
+    public void onDialogNegativeClick() {
+        // User touched the dialog's negative button
+        Log.e(TAG, "onDialogNegativeClick()");
     }
 }
 

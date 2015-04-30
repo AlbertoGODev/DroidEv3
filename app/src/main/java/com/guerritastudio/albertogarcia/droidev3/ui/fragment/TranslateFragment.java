@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
+import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
 
-public class TranslateFragment extends Fragment {
+public class TranslateFragment extends BaseFragment {
 
     public static TranslateFragment newInstance(int sectionNumber) {
         TranslateFragment fragment = new TranslateFragment();

@@ -1,6 +1,10 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +25,8 @@ import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.NavigationDrawerFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TranslateFragment;
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify;
 
 public class DrawerActivity extends BaseActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -39,10 +46,6 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        droidEv3 = this.getDroidEv3();
-        if (droidEv3 != null) {
-            droidEv3.playBeep();
-        }
         setContentView(R.layout.activity_drawer);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -54,9 +57,18 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
             setSupportActionBar(toolbar);
         }
 
+        droidEv3 = this.getDroidEv3();
+        if (droidEv3 != null) {
+            // droidEv3.playBeep(3);
+        }
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //disconnectDroidEv3();
     }
 
     @Override
@@ -90,7 +102,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
     }
 
     public void onSectionAttached(int number) {
-        mTitle = getResources().getStringArray(R.array.menu_sections)[number-1];
+        mTitle = getResources().getStringArray(R.array.menu_sections)[number - 1];
     }
 
     public void restoreActionBar() {
@@ -102,17 +114,24 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+/*        if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.drawer, menu);
             restoreActionBar();
             return true;
-        }
+        }*/
+
+
+/*        Drawable aboutDrawable = new IconDrawable(this, Iconify.IconValue.fa_share).colorRes(R.color.red).actionBarSize();
+        menu.findItem(R.id.action_disconnect).setIcon(aboutDrawable);*/
+
+
+        getMenuInflater().inflate(R.menu.drawer, menu);
         return super.onCreateOptionsMenu(menu);
     }
-/*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -121,12 +140,38 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+/*        if (id == R.id.action_settings) {
+            return true;
+        }*/
+
+        if (id == R.id.action_disconnect) {
+            Log.d(TAG, "onOptionsItemSelected() action_disconnect");
+            exitAlertDialog();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+
+    private void exitAlertDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.disconnect);
+        dialog.setMessage(R.string.disconnect_dialog);
+        dialog.setCancelable(false);
+        dialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                disconnectDroidEv3();
+                startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
+                finish();
+            }
+        });
+        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                //Canceled...
+            }
+        });
+        dialog.show();
+    }
 
     /**
      * A placeholder fragment containing a simple view.

@@ -1,10 +1,73 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="Fragment Joystick" />
 
-</FrameLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forward"
+        android:id="@+id/fragment_joystick_forward_btn"
+        android:layout_above="@+id/fragment_joystick_stop_btn"
+        android:layout_alignRight="@+id/fragment_joystick_stop_btn"
+        android:layout_alignEnd="@+id/fragment_joystick_stop_btn"
+        android:layout_marginBottom="46dp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/right"
+        android:id="@+id/fragment_joystick_right_btn"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stop"
+        android:id="@+id/fragment_joystick_stop_btn"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/left"
+        android:id="@+id/fragment_joystick_left_btn"
+        android:layout_above="@+id/fragment_joystick_backward_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backward"
+        android:id="@+id/fragment_joystick_backward_btn"
+        android:layout_below="@+id/fragment_joystick_stop_btn"
+        android:layout_alignLeft="@+id/fragment_joystick_stop_btn"
+        android:layout_alignStart="@+id/fragment_joystick_stop_btn"
+        android:layout_marginTop="52dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asignar Velocidad:"
+        android:id="@+id/fragment_joystick_setvelocity"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_joystick_et"
+        android:inputType="number"
+        android:layout_alignBottom="@+id/fragment_joystick_setvelocity"
+        android:layout_toLeftOf="@+id/fragment_joystick_right_btn"
+        android:layout_toRightOf="@+id/fragment_joystick_forward_btn"
+        android:layout_toEndOf="@+id/fragment_joystick_forward_btn" />
+
+</RelativeLayout>

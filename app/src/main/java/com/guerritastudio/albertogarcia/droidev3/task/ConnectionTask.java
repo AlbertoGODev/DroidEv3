@@ -30,13 +30,24 @@ public abstract class ConnectionTask extends AsyncTask<String, Void, DroidEv3> {
         try {
             String ip = params[0];
 
-            BrickInfo[] devices = BrickFinder.discover();
-            if (devices.length > 0) {
+            BrickInfo[] devices = BrickFinder.discover();//If Ev3 or mobile is disconnected discover() will throw SocketTimeoutException.
+
+            Log.e(TAG, "Number of devices discover:" + devices.length);
+
+            for (int i = 0; i < devices.length; i++) {
+                BrickInfo brickInfo = devices[i];
+                if (brickInfo.getIPAddress().equals(ip)){
+                    Log.e(TAG, "BrickFinder has been discover!!!");
+                    return new DroidEv3(brickInfo);
+                }
+            }
+
+            /*if (devices.length > 0) {
                 Log.e(TAG, "BrickFinder has been discover:" + devices[0].getIPAddress());
                 if (devices[0].getIPAddress().equals(ip)) {
                     return new DroidEv3(ip);
                 }
-            }
+            }*/
         } catch (Exception e) {
             this.e = e;
             e.printStackTrace();
