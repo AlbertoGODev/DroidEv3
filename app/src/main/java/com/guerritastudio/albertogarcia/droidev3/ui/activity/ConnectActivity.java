@@ -47,7 +47,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
 
     @Override
     protected void onDestroy() {
-        Log.e(TAG,"onDestroy");
+        Log.e(TAG, "onDestroy");
         super.onDestroy();
         if (droidConnectTask != null) {
             droidConnectTask.cancel(true);
@@ -60,8 +60,12 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.connect_ev3_btn:
                 //Para entrar sin conectar:
-                //startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
-                connectWithEv3();
+                if (ipAddressET.getText().toString().equals("123")) {
+                    Log.e(TAG, " Mode Demo");
+                    startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
+                } else {
+                    connectWithEv3();
+                }
                 return;
             case R.id.search_ev3_btn:
                 showSearchEv3Dialog();
@@ -88,7 +92,13 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 Log.d(TAG, "setListeners()------->onEditorAction()");
-                connectWithEv3();
+                //Para entrar sin conectar:
+                if (ipAddressET.getText().toString().equals("123")) {
+                    Log.e(TAG, " Mode Demo");
+                    startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
+                } else {
+                    connectWithEv3();
+                }
                 return false;
             }
         });
@@ -122,7 +132,6 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             public void onConnectedToDroid(DroidEv3 droidEv3) {
                 showButtons();
                 ConnectActivity.this.setDroidEv3(droidEv3);
-                //startActivity(new Intent(ConnectActivity.this, JoystickViewDemoActivity.class));
                 startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
                 clearTask();
                 finish();
@@ -184,7 +193,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
     @Override
     public void onDialogPositiveClick(BrickInfo brickInfo) {
         // User touched the dialog's positive button
-        Log.d(TAG, "onDialogPositiveClick() brickInfo ipAddress: "+brickInfo.getIPAddress());
+        Log.d(TAG, "onDialogPositiveClick() brickInfo ipAddress: " + brickInfo.getIPAddress());
         ipAddressET.setText(brickInfo.getIPAddress());
     }
 

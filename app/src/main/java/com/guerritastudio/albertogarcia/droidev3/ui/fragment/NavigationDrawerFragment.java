@@ -95,7 +95,7 @@ public class NavigationDrawerFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate( R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -265,7 +265,9 @@ public class NavigationDrawerFragment extends BaseFragment {
     }
 */
 /*
-    *//**
+    */
+
+    /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
      * 'context', rather than just what's in the current screen.
      *//*
@@ -274,10 +276,10 @@ public class NavigationDrawerFragment extends BaseFragment {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(R.string.app_name);
     }*/
-
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
+
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
@@ -337,8 +339,10 @@ public class NavigationDrawerFragment extends BaseFragment {
                 TextView ipAddressTV = (TextView) convertView.findViewById(R.id.row_menu_drawer_header_ip_address);
 
                 //TODO Set name and ip from ev3:
-                nameTV.setText(getDroidEv3().getBrickInfo().getName());
-                ipAddressTV.setText(getDroidEv3().getBrickInfo().getIPAddress());
+                if (getDroidEv3() != null) {
+                    nameTV.setText(getDroidEv3().getBrickInfo().getName());
+                    ipAddressTV.setText(getDroidEv3().getBrickInfo().getIPAddress());
+                }
 
 
             } else if (getItemViewType(position) == MENU_SECTIONS_ROW) {

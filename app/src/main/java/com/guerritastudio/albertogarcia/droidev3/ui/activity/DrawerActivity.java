@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,11 +21,9 @@ import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseActionBarActivity;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
-import com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickFragment;
+import com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickViewPagerFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.NavigationDrawerFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TranslateFragment;
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify;
 
 public class DrawerActivity extends BaseActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -37,7 +34,6 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar toolbar;
-    private DroidEv3 droidEv3;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -48,8 +44,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         toolbar = (Toolbar) findViewById(R.id.drawer_toolbar);
@@ -57,18 +52,8 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
             setSupportActionBar(toolbar);
         }
 
-        droidEv3 = this.getDroidEv3();
-        if (droidEv3 != null) {
-            // droidEv3.playBeep(3);
-        }
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //disconnectDroidEv3();
     }
 
     @Override
@@ -78,13 +63,16 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
 
         switch (position) {
 
+            case 0:
+                Log.d(TAG, "onNavigationDrawerItemSelected() = case 0 (click en cabecera)");
+                break;
             case 1:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 1");
                 fragmentManager.beginTransaction().replace(R.id.content_frame, TranslateFragment.newInstance(position)).commit();
                 break;
             case 2:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 2");
-                fragmentManager.beginTransaction().replace(R.id.content_frame, JoystickFragment.newInstance(position)).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, JoystickViewPagerFragment.newInstance(position)).commit();
                 break;
             case 3:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 3");
@@ -92,13 +80,6 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
                 break;
 
         }
-
-        /*
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, PlaceholderFragment.newInstance(position + 1))
-                .commit();*/
     }
 
     public void onSectionAttached(int number) {
@@ -114,19 +95,14 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-/*        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.drawer, menu);
-            restoreActionBar();
+            restoreActionBar();//To setTitle
             return true;
-        }*/
-
-
-/*        Drawable aboutDrawable = new IconDrawable(this, Iconify.IconValue.fa_share).colorRes(R.color.red).actionBarSize();
-        menu.findItem(R.id.action_disconnect).setIcon(aboutDrawable);*/
-
+        }
 
         getMenuInflater().inflate(R.menu.drawer, menu);
         return super.onCreateOptionsMenu(menu);
@@ -172,45 +148,4 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         });
         dialog.show();
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((DrawerActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }
-
 }

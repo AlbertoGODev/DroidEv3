@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="angleTextView"
+            android:id="@+id/angleTextView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="powerTextView"
+            android:id="@+id/powerTextView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="directionTextView"
+            android:id="@+id/directionTextView" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_analog_joystick_ll"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.guerritastudio.albertogarcia.droidev3.widget.JoystickView
+            android:layout_centerInParent="true"
+            android:id="@+id/joystickView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </com.guerritastudio.albertogarcia.droidev3.widget.JoystickView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

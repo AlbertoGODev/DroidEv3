@@ -42,12 +42,6 @@ public abstract class ConnectionTask extends AsyncTask<String, Void, DroidEv3> {
                 }
             }
 
-            /*if (devices.length > 0) {
-                Log.e(TAG, "BrickFinder has been discover:" + devices[0].getIPAddress());
-                if (devices[0].getIPAddress().equals(ip)) {
-                    return new DroidEv3(ip);
-                }
-            }*/
         } catch (Exception e) {
             this.e = e;
             e.printStackTrace();

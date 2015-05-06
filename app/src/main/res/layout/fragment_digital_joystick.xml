@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickFragment">
+    tools:context="com.guerritastudio.albertogarcia.droidev3.ui.fragment.DigitalJoystickFragment">
 
 
     <Button
@@ -66,8 +66,8 @@
         android:id="@+id/fragment_joystick_et"
         android:inputType="number"
         android:layout_alignBottom="@+id/fragment_joystick_setvelocity"
-        android:layout_toLeftOf="@+id/fragment_joystick_right_btn"
-        android:layout_toRightOf="@+id/fragment_joystick_forward_btn"
-        android:layout_toEndOf="@+id/fragment_joystick_forward_btn" />
+        android:layout_toRightOf="@+id/fragment_joystick_setvelocity"
+        android:layout_alignRight="@+id/fragment_joystick_forward_btn"
+        android:layout_alignEnd="@+id/fragment_joystick_forward_btn" />
 
 </RelativeLayout>

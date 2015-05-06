@@ -33,13 +33,28 @@
     <string name="form_ip_not_discover">No se ha encontrado esa IPv4</string>
     <string name="form_ip_exception">Fallo en la conexión, vuelva a intentarlo más tarde</string>
     <string name="form_brick_not_found">No se encontró ningún Ev3</string>
+    <string name="set_speed_error">La velocidad debe de estar entre 0 y 100</string>
 
     <!--Navigation Drawer-->
     <string name="navigation_drawer_open">Abrir menú lateral</string>
     <string name="navigation_drawer_close">Cerrar menú lateral</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- View Pager -->
+    <string name="title_strip_digital_joystick">Digital</string>
+    <string name="title_strip_analog_stick">Analógico</string>
+
+    <!--Fragment Info-->
+
+    <string name="voltage">Tensión de la batería: %1$d mV</string>
+    <string name="current_draw">Consumo de corriente: %1$f Amps</string>
+    <string name="touch_sensor">Sensor táctil:</string>
+    <string name="color_sensor">Sensor de color:</string>
+    <string name="ir_sensor">Sensor IR:</string>
+    <string name="led_pattern">LED Pattern:</string>
+
+
+
+<!-- TODO: Remove or change this joystick text -->
     <string name="front_lab">front_lab</string>
     <string name="front_right_lab">front_right_lab</string>
     <string name="right_lab">right_lab</string>
