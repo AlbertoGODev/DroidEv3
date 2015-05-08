@@ -79,7 +79,7 @@ public class JoystickView extends View implements Runnable {
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.d(TAG, "onMeasure()");
+        //Log.d(TAG, "onMeasure()");
         int d = Math.min(this.measure(widthMeasureSpec), this.measure(heightMeasureSpec));
         this.setMeasuredDimension(d, d);
         this.xPosition = this.getWidth() / 2;
@@ -89,7 +89,7 @@ public class JoystickView extends View implements Runnable {
     }
 
     private int measure(int measureSpec) {
-        Log.d(TAG, "measure()");
+        //Log.d(TAG, "measure()");
         boolean result = false;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
@@ -104,7 +104,7 @@ public class JoystickView extends View implements Runnable {
     }
 
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "onDraw()");
+        //Log.d(TAG, "onDraw()");
         this.centerX = (double) (this.getWidth() / 2);
         this.centerY = (double) (this.getHeight() / 2);
         canvas.drawCircle((float) ((int) this.centerX), (float) ((int) this.centerY), (float) this.joystickRadius, this.mainCircle);
@@ -116,7 +116,7 @@ public class JoystickView extends View implements Runnable {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d(TAG, "onTouchEvent()");
+        //Log.d(TAG, "onTouchEvent()");
         this.xPosition = (int) event.getX();
         this.yPosition = (int) event.getY();
         double abs = Math.sqrt(((double) this.xPosition - this.centerX) * ((double) this.xPosition - this.centerX) + ((double) this.yPosition - this.centerY) * ((double) this.yPosition - this.centerY));

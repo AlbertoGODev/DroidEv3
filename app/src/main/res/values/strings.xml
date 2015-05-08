@@ -47,9 +47,9 @@
 
     <string name="voltage">Tensión de la batería: %1$d mV</string>
     <string name="current_draw">Consumo de corriente: %1$f Amps</string>
-    <string name="touch_sensor">Sensor táctil:</string>
-    <string name="color_sensor">Sensor de color:</string>
-    <string name="ir_sensor">Sensor IR:</string>
+    <string name="touch_sensor">Sensor táctil: %1$d</string>
+    <string name="color_sensor">Sensor de color: %1$s</string>
+    <string name="ir_sensor">Sensor IR: %1$d</string>
     <string name="led_pattern">LED Pattern:</string>
 
 
@@ -64,6 +64,17 @@
     <string name="left_lab">left_lab</string>
     <string name="left_front_lab">left_front_lab</string>
     <string name="center_lab">center_lab</string>
+
+    <!--Colors Sensor-->
+    <string name="color_s_none">Ninguno</string>
+    <string name="color_s_red">Rojo</string>
+    <string name="color_s_green">Verde</string>
+    <string name="color_s_blue">Azul</string>
+    <string name="color_s_yellow">Amarillo</string>
+    <string name="color_s_white">Blanco</string>
+    <string name="color_s_black">Negro</string>
+    <string name="color_s_brown">Marrón</string>
+
 
 
 </resources>

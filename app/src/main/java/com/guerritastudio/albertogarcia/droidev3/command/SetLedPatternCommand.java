@@ -2,6 +2,8 @@ package com.guerritastudio.albertogarcia.droidev3.command;
 
 import android.util.Log;
 
+import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+
 import lejos.hardware.LED;
 import lejos.robotics.RegulatedMotor;
 
@@ -25,5 +27,6 @@ public class SetLedPatternCommand implements Command {
         Log.e(TAG, "run()");
 
         led.setPattern(pattern);
+        DroidEv3.lastPattern = pattern;
     }
 }

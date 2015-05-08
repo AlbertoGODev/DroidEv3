@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/searching_ev3_tv"
         android:layout_margin="@dimen/margin_m"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textColor="@color/SteelBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_height="40dp"/>
         <android.widget.IconButton
             android:text="{fa-refresh}"
-            android:textSize="26dp"
+            android:textSize="26sp"
             android:background="@android:color/transparent"
             android:id="@+id/searching_ev3_refresh_btn"
             android:visibility="gone"

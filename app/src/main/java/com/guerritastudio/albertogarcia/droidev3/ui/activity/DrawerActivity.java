@@ -57,6 +57,20 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy()");
+
+        // getDroidEv3().closeSensors();//Hay que cerrarlos en la pregunta....
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        disconnectDroidEv3();
+    }
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -129,6 +143,11 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        exitAlertDialog();
+    }
+
     private void exitAlertDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(R.string.disconnect);
@@ -136,9 +155,15 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         dialog.setCancelable(false);
         dialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                disconnectDroidEv3();
-                startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
-                finish();
+                try {
+                    getDroidEv3().closeSensors();
+                    Thread.sleep(500);//Necessary to closeSensors().
+                    disconnectDroidEv3();
+                    startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
+                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
