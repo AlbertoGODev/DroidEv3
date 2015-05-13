@@ -66,9 +66,10 @@
     </LinearLayout>
 
     <Button
+        android:layout_marginTop="@dimen/margin_xl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
+        android:text="Acerca De"
         android:id="@+id/fragment_info_update_btn" />
 
 

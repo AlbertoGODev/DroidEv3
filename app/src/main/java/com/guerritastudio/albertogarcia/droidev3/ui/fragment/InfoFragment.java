@@ -69,8 +69,10 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG,"onResume()");
-        timerInfo();
+        Log.e(TAG, "onResume()");
+        if (droidEv3 != null) {
+            timerInfo();
+        }
     }
 
     @Override
@@ -130,7 +132,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo {
                 Log.d(TAG, "onItemSelected parent = " + parent.getSelectedItem());
 
                 if (parent.getSelectedItemPosition() == 0 && !ledFlag) {
-                    ledPatternSp.setSelection(DroidEv3.lastPattern);
+                    ledPatternSp.setSelection(DroidEv3.lastLedPattern);
                     ledFlag = true;
                 }
                 droidEv3.setLEDPattern(parent.getSelectedItemPosition());

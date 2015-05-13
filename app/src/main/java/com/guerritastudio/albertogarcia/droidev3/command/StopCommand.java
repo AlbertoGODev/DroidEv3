@@ -30,8 +30,5 @@ public class StopCommand implements Command {
         rightMotorRegulator.setSpeed(0);
         leftMotorRegulator.stop(true);
         rightMotorRegulator.stop(true);
-
-        /*leftMotorRegulator.close();
-        rightMotorRegulator.close();*/
     }
 }

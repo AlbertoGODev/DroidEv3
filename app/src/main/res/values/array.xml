@@ -3,6 +3,7 @@
 
     <!--Navigation Drawer-->
     <array name="menu_sections">
+        <item>Inicio</item>
         <item>Traductor</item>
         <item>Joystick</item>
         <item>Información</item>

@@ -300,7 +300,7 @@ public class NavigationDrawerFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            return menuSectionTitles.length + 1;
+            return menuSectionTitles.length ;
         }
 
         @Override
@@ -349,7 +349,7 @@ public class NavigationDrawerFragment extends BaseFragment {
                 TextView sectionNameTV = (TextView) convertView.findViewById(R.id.row_menu_drawer_item_tv);
                 ImageView sectionIV = (ImageView) convertView.findViewById(R.id.row_menu_drawer_item_iv);
 
-                sectionNameTV.setText(menuSectionTitles[position - 1]);
+                sectionNameTV.setText(menuSectionTitles[position]);
                 sectionIV.setImageResource(menuSectionImages[position - 1]);
             }
 

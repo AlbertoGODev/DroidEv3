@@ -54,7 +54,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Asignar Velocidad:"
+        android:text="@string/set_speed"
         android:id="@+id/fragment_joystick_setvelocity"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -69,5 +69,14 @@
         android:layout_toRightOf="@+id/fragment_joystick_setvelocity"
         android:layout_alignRight="@+id/fragment_joystick_forward_btn"
         android:layout_alignEnd="@+id/fragment_joystick_forward_btn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoot"
+        android:id="@+id/fragment_joystick_shoot_btn"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/fragment_joystick_right_btn"
+        android:layout_alignEnd="@+id/fragment_joystick_right_btn" />
 
 </RelativeLayout>

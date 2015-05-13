@@ -12,15 +12,10 @@ import lejos.hardware.Audio;
 import lejos.hardware.BrickInfo;
 import lejos.hardware.LED;
 import lejos.hardware.Power;
-import lejos.hardware.lcd.TextLCD;
-import lejos.hardware.port.Port;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.remote.ev3.RemoteRequestEV3;
+import lejos.remote.ev3.RemoteRequestMenu;
 import lejos.remote.ev3.RemoteRequestSampleProvider;
 import lejos.robotics.RegulatedMotor;
-import lejos.robotics.SampleProvider;
-import lejos.robotics.TouchAdapter;
 
 /**
  * Created by AlbertoGarcia on 23/4/15.
@@ -39,20 +34,16 @@ public class DroidEv3 extends RemoteRequestEV3 {
     private BrickInfo brickInfo;
     private Audio audio;
     private LED led;
-    public static int lastPattern = 0;
+    public static int lastLedPattern = 0;
     private Power power;
 
     RemoteRequestSampleProvider touchSensorSP;
     RemoteRequestSampleProvider irSensorSP;
     RemoteRequestSampleProvider colorSP;
 
-
-    private RegulatedMotor regulatedMotorLeft, regulatedMotorRight;
+    private RegulatedMotor regulatedMotorLeft, regulatedMotorRight, regulatedMotorCenter;
     private CommandExecutor commandExecutor;
 
-    //Sensors:
-    //private RemoteRequestSampleProvider remoteRequestSampleProvider;
-    //private PruebaSensor pruebaSensorTask;
 
     public DroidEv3(BrickInfo brickInfo) throws IOException {
         super(brickInfo.getIPAddress());
@@ -61,16 +52,23 @@ public class DroidEv3 extends RemoteRequestEV3 {
         initializeComponents();
     }
 
-    private void initializeComponents() {
-        power = getPower();
-        led = getLED();
-        //initMotors();
-        //setMotorsSpeed();
-        commandExecutor = CommandExecutor.getInstance();
-        createSensors();
-        Log.d(TAG, "Components started correctly, ipAddress:" + brickInfo.getIPAddress() + " nameBrick: " + brickInfo.getName());
+    public DroidEv3(String ip) throws IOException{
+        super(ip);
+        Log.d(TAG, "DroidEv3(ip) constructor");
     }
 
+    private void initializeComponents() {
+        /*power = getPower();
+        led = getLED();
+        initMotors();
+        setMotorsSpeed();
+        commandExecutor = CommandExecutor.getInstance();*/
+        //createSensors();
+
+        //new CreateMenuTask().execute(brickInfo.getIPAddress());
+
+        Log.d(TAG, "Components started correctly, ipAddress:" + brickInfo.getIPAddress() + " nameBrick: " + brickInfo.getName());
+    }
 
     //BrickInfo:
     public BrickInfo getBrickInfo() {
@@ -83,78 +81,13 @@ public class DroidEv3 extends RemoteRequestEV3 {
         commandExecutor.run(new GetPowerInfoCommand(power, callback, touchSensorSP, irSensorSP, colorSP));
     }
 
+    //Led Control:
     public void setLEDPattern(int pattern) {
-        //Log.d(TAG, "setLEDPattern with pattern = " + pattern + " and lastPattern = " + lastPattern);
-        if (pattern != lastPattern) {
+        //Log.d(TAG, "setLEDPattern with pattern = " + pattern + " and lastLedPattern = " + lastLedPattern);
+        if (pattern != lastLedPattern) {
             commandExecutor.run(new SetLedPatternCommand(led, pattern));
         }
     }
-
-
-    //Pruebas sensores.............
-
-    public void createSensors() {
-        Log.d(TAG, "createSensors()");
-        touchSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", "Touch");
-        Log.e(TAG, "touchSensorSP created");
-        irSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S4", "lejos.hardware.sensor.EV3IRSensor", "Distance");
-        Log.e(TAG, "irSensorSP created");
-        colorSP = (RemoteRequestSampleProvider) createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-        Log.e(TAG, "colorSP created");
-    }
-
-/*    public void getTouchSensor() {
-        if (pruebaSensorTask == null) {
-            Log.d(TAG, "pruebaSensorTask is null, creating...");
-            pruebaSensorTask = new PruebaSensor();
-            //pruebaSensorTask.execute();
-        } else {
-
-            Log.d(TAG, "pruebaSensorTask is not null.");
-        }
-        pruebaSensorTask.execute();
-    }*/
-
-    public void closeSensors() {
-        Log.d(TAG, "closeSensors()");
-        if (touchSensorSP != null) {
-            touchSensorSP.close();
-        }
-        if (irSensorSP != null) {
-            irSensorSP.close();
-        }
-        if (colorSP != null) {
-            colorSP.close();
-        }
-    }
-
-
-/*    private class PruebaSensor extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            remoteRequestSampleProvider = (RemoteRequestSampleProvider) createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", "Touch");
-            Log.d("doInBackground()", "remoteRequestSampleProvider created");
-
-            float[] sample = new float[remoteRequestSampleProvider.sampleSize()];
-
-            while (true) {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                remoteRequestSampleProvider.fetchSample(sample, 0);
-                if (sample[0] == 1) {
-                    Log.d(TAG, "Sample == 1");
-                } else {
-                    Log.d(TAG, "Sample == 0");
-                }
-                //return null;
-            }
-        }
-    }*/
 
 
     //Motors:
@@ -163,6 +96,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
         //L (for large), M (for medium) or G (for glide wheel)
         regulatedMotorLeft = createRegulatedMotor("B", 'L');
         regulatedMotorRight = createRegulatedMotor("C", 'L');
+        regulatedMotorCenter = createRegulatedMotor("A", 'L');
     }
 
     private void setMotorsSpeed() {
@@ -189,6 +123,30 @@ public class DroidEv3 extends RemoteRequestEV3 {
         commandExecutor.run(new SetSpeedCommand(regulatedMotorLeft, regulatedMotorRight, speedToLeft, speedToRight));
     }
 
+    //Sensors:
+
+    public void createSensors() {
+        Log.d(TAG, "createSensors()");
+        touchSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", "Touch");
+        Log.e(TAG, "touchSensorSP created");
+        irSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S4", "lejos.hardware.sensor.EV3IRSensor", "Distance");
+        Log.e(TAG, "irSensorSP created");
+        colorSP = (RemoteRequestSampleProvider) createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+        Log.e(TAG, "colorSP created");
+    }
+
+    public void closeSensors() {
+        Log.d(TAG, "closeSensors()");
+        if (touchSensorSP != null) {
+            touchSensorSP.close();
+        }
+        if (irSensorSP != null) {
+            irSensorSP.close();
+        }
+        if (colorSP != null) {
+            colorSP.close();
+        }
+    }
 
     //Move commands:
 
@@ -241,6 +199,11 @@ public class DroidEv3 extends RemoteRequestEV3 {
 
     }
 
+    public void shoot() {
+        Log.d(TAG, "shoot()");
+        commandExecutor.run(new ShootCommand(regulatedMotorCenter));
+    }
+
 
     //Sounds:
 /*
@@ -267,5 +230,26 @@ public class DroidEv3 extends RemoteRequestEV3 {
         *//*
     public void playBeep(int aCode) {
         audio.systemSound(aCode);
+    }*/
+
+  /*  private class CreateMenuTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            // Create the remote menu
+            try {
+                Log.d(TAG, "CreateMenuTask doInBackground params = "+params[0]);
+                if (menu == null) {
+                    menu = new RemoteRequestMenu(params[0]);
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            Log.e(TAG, "menu version= " + menu.getMenuVersion());
+            return null;
+
+        }
     }*/
 }

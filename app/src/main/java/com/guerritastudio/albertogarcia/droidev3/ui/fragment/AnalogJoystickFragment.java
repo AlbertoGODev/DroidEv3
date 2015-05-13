@@ -1,5 +1,6 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.fragment;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,9 @@ public class AnalogJoystickFragment extends BaseFragment {
     private TextView powerTextView;
     private TextView directionTextView;
     private JoystickView joystick;
+
+    private int lastDirection = 0;
+    private int lastPower = 0;
 
 
     private PagerEnabled mDelegate;
@@ -78,47 +82,54 @@ public class AnalogJoystickFragment extends BaseFragment {
 
             @Override
             public void onValueChanged(int angle, int power, int direction) {
-                // Log.d(TAG, "onValueChanged speed=" + power);
+                Log.d(TAG, "onValueChanged direction = " + direction + " power=" + power);
                 angleTextView.setText(" " + String.valueOf(angle) + "°");
                 powerTextView.setText(" " + String.valueOf(power) + "%");
 
-                if (droidEv3 != null) {
-                    switch (direction) {
-                        case JoystickView.FRONT:
-                            directionTextView.setText(R.string.front_lab);
-                            droidEv3.moveForward(power);
-                            break;
-                        case JoystickView.FRONT_RIGHT:
-                            directionTextView.setText(R.string.front_right_lab);
-                            droidEv3.moveRightForward(power);
-                            break;
-                        case JoystickView.RIGHT:
-                            directionTextView.setText(R.string.right_lab);
-                            droidEv3.moveRight(power);
-                            break;
-                        case JoystickView.RIGHT_BOTTOM:
-                            directionTextView.setText(R.string.right_bottom_lab);
-                            droidEv3.moveRightBackward(power);
-                            break;
-                        case JoystickView.BOTTOM:
-                            directionTextView.setText(R.string.bottom_lab);
-                            droidEv3.moveBackward(power);
-                            break;
-                        case JoystickView.BOTTOM_LEFT:
-                            directionTextView.setText(R.string.bottom_left_lab);
-                            droidEv3.moveLeftBackward(power);
-                            break;
-                        case JoystickView.LEFT:
-                            directionTextView.setText(R.string.left_lab);
-                            droidEv3.moveLeft(power);
-                            break;
-                        case JoystickView.LEFT_FRONT:
-                            directionTextView.setText(R.string.left_front_lab);
-                            droidEv3.moveLeftForward(power);
-                            break;
-                        default:
-                            directionTextView.setText(R.string.center_lab);
-                            droidEv3.stop();
+                Log.d(TAG, "lastDirecion = " + lastDirection + " lastPower=" + lastPower);
+                if (checkMoves(power, direction)) {
+                    Log.e(TAG, "lastDirection and lastPower changed");
+                    lastDirection = direction;
+                    lastPower = power;
+
+                    if (droidEv3 != null) {
+                        switch (direction) {
+                            case JoystickView.FRONT:
+                                directionTextView.setText(R.string.front_lab);
+                                droidEv3.moveForward(power);
+                                break;
+                            case JoystickView.FRONT_RIGHT:
+                                directionTextView.setText(R.string.front_right_lab);
+                                droidEv3.moveRightForward(power);
+                                break;
+                            case JoystickView.RIGHT:
+                                directionTextView.setText(R.string.right_lab);
+                                droidEv3.moveRight(power);
+                                break;
+                            case JoystickView.RIGHT_BOTTOM:
+                                directionTextView.setText(R.string.right_bottom_lab);
+                                droidEv3.moveRightBackward(power);
+                                break;
+                            case JoystickView.BOTTOM:
+                                directionTextView.setText(R.string.bottom_lab);
+                                droidEv3.moveBackward(power);
+                                break;
+                            case JoystickView.BOTTOM_LEFT:
+                                directionTextView.setText(R.string.bottom_left_lab);
+                                droidEv3.moveLeftBackward(power);
+                                break;
+                            case JoystickView.LEFT:
+                                directionTextView.setText(R.string.left_lab);
+                                droidEv3.moveLeft(power);
+                                break;
+                            case JoystickView.LEFT_FRONT:
+                                directionTextView.setText(R.string.left_front_lab);
+                                droidEv3.moveLeftForward(power);
+                                break;
+                            default:
+                                directionTextView.setText(R.string.center_lab);
+                                droidEv3.stop();
+                        }
                     }
                 }
             }
@@ -130,11 +141,11 @@ public class AnalogJoystickFragment extends BaseFragment {
                 //Log.e(TAG, "onTouch: " + event.getAction());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        Log.e(TAG, "ACTION_DOWN");
+                        //Log.e(TAG, "ACTION_DOWN");
                         mDelegate.disable();
                         break;
                     case MotionEvent.ACTION_UP:
-                        Log.e(TAG, "ACTION_UP");
+                        //Log.e(TAG, "ACTION_UP");
                         mDelegate.enable();
                         break;
                 }
@@ -148,6 +159,21 @@ public class AnalogJoystickFragment extends BaseFragment {
         void enable();
 
         void disable();
+    }
+
+    public Boolean checkMoves(int power, int direction) {
+
+        if (direction != lastDirection) {
+            Log.e(TAG,"direction != lastDirection");
+            return true;
+        }
+        if (direction == lastDirection && power != lastPower) {
+            Log.e(TAG,"direction == lastDirection && power != lastPower");
+            //if (power < lastPower || power > lastPower )
+            return true;
+        }
+
+        return false;
     }
 }
 

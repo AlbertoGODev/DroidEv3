@@ -25,6 +25,7 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
     private Button leftBtn;
     private Button rightBtn;
     private Button setVelBtn;
+    private Button shootBtn;
     private EditText setSpeedET;
 
     private DroidEv3 droidEv3;
@@ -68,6 +69,7 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
         rightBtn = (Button) view.findViewById(R.id.fragment_joystick_right_btn);
         setVelBtn = (Button) view.findViewById(R.id.fragment_joystick_setvelocity);
         setSpeedET = (EditText) view.findViewById(R.id.fragment_joystick_et);
+        shootBtn = (Button) view.findViewById(R.id.fragment_joystick_shoot_btn);
 
     }
 
@@ -85,6 +87,7 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
                 return false;
             }
         });
+        shootBtn.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +120,11 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
                 case R.id.fragment_joystick_setvelocity:
                     Log.d(TAG, "onClick setVelocity");
                     setSpeed();
+                    return;
+                case R.id.fragment_joystick_shoot_btn:
+                    Log.d(TAG,"onClick shoot");
+                    droidEv3.shoot();
+                    return;
             }
         }
     }

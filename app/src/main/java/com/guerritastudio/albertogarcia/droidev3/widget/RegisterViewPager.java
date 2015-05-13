@@ -38,7 +38,7 @@ public class RegisterViewPager extends ViewPager {
     }
 
     public void setPagingEnabled(boolean enabled) {
-        Log.e(TAG, "setPagingEnabled = " + enabled);
+        //Log.e(TAG, "setPagingEnabled = " + enabled);
         this.enabled = enabled;
     }
 

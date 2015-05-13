@@ -1,27 +1,22 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseActionBarActivity;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickViewPagerFragment;
+import com.guerritastudio.albertogarcia.droidev3.ui.fragment.StartFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.NavigationDrawerFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TranslateFragment;
 
@@ -54,6 +49,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        onNavigationDrawerItemSelected(0);
     }
 
     @Override
@@ -62,11 +58,11 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         Log.e(TAG, "onDestroy()");
 
         // getDroidEv3().closeSensors();//Hay que cerrarlos en la pregunta....
-        try {
+/*        try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         disconnectDroidEv3();
     }
 
@@ -79,6 +75,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
 
             case 0:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 0 (click en cabecera)");
+                fragmentManager.beginTransaction().replace(R.id.content_frame, StartFragment.newInstance(position)).commit();
                 break;
             case 1:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 1");
@@ -97,7 +94,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
     }
 
     public void onSectionAttached(int number) {
-        mTitle = getResources().getStringArray(R.array.menu_sections)[number - 1];
+        mTitle = getResources().getStringArray(R.array.menu_sections)[number];
     }
 
     public void restoreActionBar() {
@@ -156,9 +153,11 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         dialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
                 try {
-                    getDroidEv3().closeSensors();
-                    Thread.sleep(500);//Necessary to closeSensors().
-                    disconnectDroidEv3();
+                    if (getDroidEv3() != null) {
+                        getDroidEv3().closeSensors();
+                        Thread.sleep(500);//Necessary to closeSensors().
+                        disconnectDroidEv3();
+                    }
                     startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
                     finish();
                 } catch (Exception e) {
