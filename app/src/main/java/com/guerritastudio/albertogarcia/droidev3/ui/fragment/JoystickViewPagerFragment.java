@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
+import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 import com.guerritastudio.albertogarcia.droidev3.widget.RegisterViewPager;
 
@@ -19,7 +20,7 @@ import java.lang.ref.WeakReference;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JoystickViewPagerFragment extends Fragment implements AnalogJoystickFragment.PagerEnabled {
+public class JoystickViewPagerFragment extends BaseFragment implements AnalogJoystickFragment.PagerEnabled {
 
     private RegisterViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;

@@ -19,7 +19,7 @@
         android:id="@+id/activity_connect_ll">
 
         <ImageView
-            android:layout_marginBottom="@dimen/margin_l"
+            android:layout_marginBottom="@dimen/margin_xl"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ev3_head"
             android:layout_width="132dp"

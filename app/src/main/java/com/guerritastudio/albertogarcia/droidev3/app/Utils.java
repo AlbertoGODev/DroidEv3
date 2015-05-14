@@ -1,7 +1,10 @@
 package com.guerritastudio.albertogarcia.droidev3.app;
 
+import android.content.Context;
 import android.text.InputFilter;
 import android.text.Spanned;
+
+import com.guerritastudio.albertogarcia.droidev3.R;
 
 /**
  * Created by AlbertoGarcia on 23/4/15.
@@ -35,5 +38,28 @@ public class Utils {
             }
         };
         return filters;
+    }
+    public static String getColorSt(Context context,int colorSample) {
+
+        switch (colorSample) {
+            case -1:
+                return context.getResources().getString(R.string.color_s_none);
+            case 0:
+                return context.getResources().getString(R.string.color_s_red);
+            case 1:
+                return context.getResources().getString(R.string.color_s_green);
+            case 2:
+                return context.getResources().getString(R.string.color_s_blue);
+            case 3:
+                return context.getResources().getString(R.string.color_s_yellow);
+            case 6:
+                return context.getResources().getString(R.string.color_s_white);
+            case 7:
+                return context.getResources().getString(R.string.color_s_black);
+            case 13:
+                return context.getResources().getString(R.string.color_s_brown);
+            default:
+                return "null";
+        }
     }
 }

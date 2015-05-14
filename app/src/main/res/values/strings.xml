@@ -47,12 +47,22 @@
 
     <!--Fragment Info-->
 
-    <string name="voltage">Tensión de la batería: %1$d mV</string>
-    <string name="current_draw">Consumo de corriente: %1$f Amps</string>
-    <string name="touch_sensor">Sensor táctil: %1$d</string>
-    <string name="color_sensor">Sensor de color: %1$s</string>
-    <string name="ir_sensor">Sensor IR: %1$d</string>
+    <string name="voltage_tv">Tensión de la batería:</string>
+    <string name="current_draw_tv">Consumo de corriente:</string>
+    <string name="touch_sensor_tv">Sensor táctil:</string>
+    <string name="color_sensor_tv">Sensor de color:</string>
+    <string name="ir_sensor_tv">Sensor IR:</string>
+    <string name="voltage">%1$d mV</string>
+    <string name="current_draw">%1$f Amps</string>
     <string name="led_pattern">LED Pattern:</string>
+    <string name="sensors_status">Estado de los sensores:</string>
+    <string name="open_sensors">Abrir Sensores</string>
+    <string name="close_sensors">Cerrar Sensores</string>
+    <string name="about">Acerca De</string>
+    <string name="off">off</string>
+    <string name="sensors">Sensores</string>
+    <string name="values">Valores</string>
+    <string name="leds">Leds</string>
     
     <!--Fragment To Speech-->
     

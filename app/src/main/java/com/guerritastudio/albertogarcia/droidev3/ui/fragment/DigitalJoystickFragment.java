@@ -29,7 +29,7 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
     private EditText setSpeedET;
 
     private DroidEv3 droidEv3;
-    private int speed = DroidEv3.DEFAULT_SPEED;//default speed motors
+    private int speed = DroidEv3.MY_DEFAULT_SPEED;//default speed motors
 
 
     public static DigitalJoystickFragment newInstance() {

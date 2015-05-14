@@ -15,6 +15,6 @@ public class CreateSampleProviderCommand implements Command {
 
     @Override
     public void run() {
-        droidEv3.createSensors();
+        droidEv3.openSensors();
     }
 }
