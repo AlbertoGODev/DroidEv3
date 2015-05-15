@@ -1,7 +1,6 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +15,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.app.Utils;
-import com.guerritastudio.albertogarcia.droidev3.command.GetPowerInfoCommand.OnPowerInfo;
+import com.guerritastudio.albertogarcia.droidev3.command.GetSensorsInfoCommand.OnPowerInfo;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
@@ -51,7 +49,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     private Spinner ledPatternSp;
     private boolean ledFlag;
     private Timer timer;
-    private boolean sensorsStatus = false;
+    public static boolean sensorsStatus = false;
     private final String OPEN_SENSORS = "init";
     private final String CLOSE_SENSORS = "close";
 
@@ -80,7 +78,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     public void onResume() {
         super.onResume();
         Log.e(TAG, "onResume()");
-        //new CreateInfoTask().execute(OPEN_SENSORS);
+        //new InfoTask().execute(OPEN_SENSORS);
     }
 
     @Override
@@ -95,11 +93,11 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log.e(TAG, "onDestroy()");
         if (sensorsStatus) {
-            new CreateInfoTask().execute(CLOSE_SENSORS);
+            new InfoTask().execute(CLOSE_SENSORS);
         }
+        super.onDestroy();
     }
 
     @Override
@@ -166,7 +164,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new CreateInfoTask().execute(OPEN_SENSORS);
+                        new InfoTask().execute(OPEN_SENSORS);
                     }
                 } else {
                     // The toggle is disabled
@@ -174,8 +172,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new CreateInfoTask().execute(CLOSE_SENSORS);
-                        clearTextsTV();
+                        new InfoTask().execute(CLOSE_SENSORS);
                     }
                 }
             }
@@ -192,6 +189,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     }
 
     private void timerInfo() {
+        Log.d(TAG, "timerInfo()");
         // Clase en la que está el código a ejecutar
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -202,12 +200,13 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         // Aquí se pone en marcha el timer cada segundo.
         timer = new Timer();
         // Dentro de 0 milisegundos avísame cada 1000 milisegundos
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+        timer.scheduleAtFixedRate(timerTask, 0, 2000);
     }
 
     private void updateInfo() {
+        Log.d(TAG, "updateInfo with sensorStatus = " + sensorsStatus);
         if (sensorsStatus) {
-            droidEv3.fetchPowerInfo(this);
+            droidEv3.fetchSensorsInfo(this);
         }
     }
 
@@ -242,15 +241,15 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         irSensorTV.setVisibility(visibility);
     }
 
-    private void clearTextsTV() {
-        voltageTV.setText(getString(R.string.off));
-        currentDrawTV.setText(getString(R.string.off));
-        touchSensorTV.setText(getString(R.string.off));
-        colorSensorTV.setText(getString(R.string.off));
-        irSensorTV.setText(getString(R.string.off));
+    private void setTextsTV(String text) {
+        voltageTV.setText(text);
+        currentDrawTV.setText(text);
+        touchSensorTV.setText(text);
+        colorSensorTV.setText(text);
+        irSensorTV.setText(text);
     }
 
-    private class CreateInfoTask extends AsyncTask<String, Integer, Void> {
+    private class InfoTask extends AsyncTask<String, Integer, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
@@ -262,9 +261,10 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                 sensorsStatus = true;
             }
             if (params[0].equals(CLOSE_SENSORS) && sensorsStatus) {
+                sensorsStatus = false;
+                timer.cancel();
                 Log.d(TAG, "doInBackground() Close Sensors");
                 droidEv3.closeSensors();
-                sensorsStatus = false;
             }
             return null;
         }
@@ -273,12 +273,18 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d(TAG, "onPostExecute sensorsStatus = " + sensorsStatus);
-            if (sensorsStatus && timer == null) {
-                timerInfo();
+            if (!isVisible())return;
+            if (sensorsStatus) {
+                if (timer == null) {
+                    timerInfo();
+                    setTextsTV("");
+                }
             } else {
                 if (timer != null) {
-                    timer.cancel();//Comprobar que no falla por si se cierran antes de que pare el timer....
+                    //timer.cancel();//Comprobar que no falla por si se cierran antes de que pare el timer....PUESTO ANTES.........
+                    Log.d(TAG, "onPostExecute timer canceled");
                     timer = null;
+                    setTextsTV(getResources().getString(R.string.off));
                 }
             }
             setVisibilityProgressBars(View.INVISIBLE);

@@ -23,9 +23,11 @@ public class DroidEv3 extends RemoteRequestEV3 {
     private static final String TAG = DroidEv3.class.getSimpleName();
 
     public static final int MY_DEFAULT_SPEED = 10;
+    private static final int DEFAULT_SHOOT_SPEED = 100;
 
     private float speedFactorLeft;
     private float speedFactorRight;
+    private float speedFactorCenter;
 
     private BrickInfo brickInfo;
     private Power power;
@@ -54,8 +56,8 @@ public class DroidEv3 extends RemoteRequestEV3 {
 
     private void initializeComponents() {
         commandExecutor = CommandExecutor.getInstance();
-        initMotors();//Mirar de poner en onCreate del fragment Joystick.
-        setMotorsSpeed();
+        //openMotors();//Mirar de poner en onCreate del fragment Joystick.
+        //setMotorsSpeed();
         Log.d(TAG, "Components started correctly, ipAddress:" + brickInfo.getIPAddress() + " nameBrick: " + brickInfo.getName());
     }
 
@@ -76,17 +78,6 @@ public class DroidEv3 extends RemoteRequestEV3 {
         commandExecutor.run(new UploadFileCommand(this, brickInfo.getIPAddress(), file));
     }
 
-    //Power Info:
-    public void initPower() {
-        Log.d(TAG, "initPower");
-        power = getPower();
-    }
-
-    public void fetchPowerInfo(GetPowerInfoCommand.OnPowerInfo callback) {
-        //Log.d(TAG, "fetchPowerInfo()");
-        commandExecutor.run(new GetPowerInfoCommand(power, callback, touchSensorSP, irSensorSP, colorSP));
-    }
-
     //Led Control:
     public void initLed() {
         Log.d(TAG, "initLed()");
@@ -100,17 +91,59 @@ public class DroidEv3 extends RemoteRequestEV3 {
         }
     }
 
+    //Power Info:
+    public void initPower() {
+        Log.d(TAG, "initPower");
+        power = getPower();
+    }
+
+    //Sensors:
+    public void openSensors() {
+        try {
+            Log.d(TAG, "openSensors()");
+            touchSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", "Touch");
+            Log.e(TAG, "touchSensorSP opened");
+            irSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S4", "lejos.hardware.sensor.EV3IRSensor", "Distance");
+            Log.e(TAG, "irSensorSP opened");
+            colorSP = (RemoteRequestSampleProvider) createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+            Log.e(TAG, "colorSP opened");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closeSensors() {
+        Log.d(TAG, "closeSensors()");
+        try {
+            if (touchSensorSP != null) {
+                touchSensorSP.close();
+            }
+            if (irSensorSP != null) {
+                irSensorSP.close();
+            }
+            if (colorSP != null) {
+                colorSP.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fetchSensorsInfo(GetSensorsInfoCommand.OnPowerInfo callback) {
+        Log.d(TAG, "fetchSensorsInfo()");
+        commandExecutor.run(new GetSensorsInfoCommand(power, callback, touchSensorSP, irSensorSP, colorSP));
+    }
 
     //Motors:
 
-    private void initMotors() {
+    public void openMotors() {
         //L (for large), M (for medium) or G (for glide wheel)
         regulatedMotorLeft = createRegulatedMotor("B", 'L');
         regulatedMotorRight = createRegulatedMotor("C", 'L');
         regulatedMotorCenter = createRegulatedMotor("A", 'L');
     }
 
-    private void setMotorsSpeed() {
+    public void setMotorsSpeed() {
         //To regulatedMotorLeft:
         float maxSpeedLeft = regulatedMotorLeft.getMaxSpeed();
         speedFactorLeft = maxSpeedLeft / 100f;
@@ -118,18 +151,32 @@ public class DroidEv3 extends RemoteRequestEV3 {
 
         Log.e(TAG, "setMotorsSpeed: maxSpeedLeft= " + maxSpeedLeft + "  ,speedFactorLeft= " + speedFactorLeft + " ,velSetted= " + MY_DEFAULT_SPEED * speedFactorLeft);
 
-        //To Right:
+        //To regulatedMotorRight:
         float maxSpeedRight = regulatedMotorRight.getMaxSpeed();
         speedFactorRight = maxSpeedRight / 100f;
         regulatedMotorRight.setSpeed((int) (MY_DEFAULT_SPEED * speedFactorRight));
 
         Log.e(TAG, "setMotorsSpeed: maxSpeedRight= " + maxSpeedRight + "  ,speedFactorRight= " + speedFactorRight + " ,velSetted= " + MY_DEFAULT_SPEED * speedFactorRight);
+
+        //To regulatedMotorCenter:
+        float maxSpeedCenter = regulatedMotorCenter.getMaxSpeed();
+        speedFactorCenter = maxSpeedCenter / 100f;
+        regulatedMotorCenter.setSpeed((int) (DEFAULT_SHOOT_SPEED * speedFactorCenter));
+
+        Log.e(TAG, "setMotorsSpeed: maxSpeedCenter= " + maxSpeedCenter + "  ,speedFactorCenter= " + speedFactorCenter + " ,velSetted= " + DEFAULT_SHOOT_SPEED * speedFactorCenter);
     }
 
-    private void closeMotors() {
-        regulatedMotorLeft.close();
-        regulatedMotorRight.close();
-        regulatedMotorCenter.close();
+    public void closeMotors() {
+        try {
+            regulatedMotorLeft.close();
+            regulatedMotorLeft = null;
+            regulatedMotorRight.close();
+            regulatedMotorRight = null;
+            regulatedMotorCenter.close();
+            regulatedMotorCenter = null;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setSpeed(int speed) {
@@ -140,30 +187,6 @@ public class DroidEv3 extends RemoteRequestEV3 {
         commandExecutor.run(new SetSpeedCommand(regulatedMotorLeft, regulatedMotorRight, speedToLeft, speedToRight));
     }
 
-    //Sensors:
-
-    public void openSensors() {
-        Log.d(TAG, "openSensors()");
-        touchSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", "Touch");
-        Log.e(TAG, "touchSensorSP opened");
-        irSensorSP = (RemoteRequestSampleProvider) createSampleProvider("S4", "lejos.hardware.sensor.EV3IRSensor", "Distance");
-        Log.e(TAG, "irSensorSP opened");
-        colorSP = (RemoteRequestSampleProvider) createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-        Log.e(TAG, "colorSP opened");
-    }
-
-    public void closeSensors() {
-        Log.d(TAG, "closeSensors()");
-        if (touchSensorSP != null) {
-            touchSensorSP.close();
-        }
-        if (irSensorSP != null) {
-            irSensorSP.close();
-        }
-        if (colorSP != null) {
-            colorSP.close();
-        }
-    }
 
     //Move commands:
 

@@ -23,7 +23,7 @@ public class ShootCommand implements Command {
     @Override
     public void run() {
         Log.e(TAG, "run()");
-        regulatedMotorCenter.rotateTo(1000);
+        regulatedMotorCenter.rotateTo(1100);
         regulatedMotorCenter.resetTachoCount();
     }
 }

@@ -154,9 +154,9 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
             public void onClick(DialogInterface dialogo1, int id) {
                 try {
                     if (getDroidEv3() != null) {
-                        getDroidEv3().closeSensors();
-                        Thread.sleep(500);//Necessary to closeSensors().
-                        disconnectDroidEv3();
+                        //getDroidEv3().closeSensors();
+                        //Thread.sleep(500);//Necessary to closeSensors().
+                        //disconnectDroidEv3();
                     }
                     startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
                     finish();

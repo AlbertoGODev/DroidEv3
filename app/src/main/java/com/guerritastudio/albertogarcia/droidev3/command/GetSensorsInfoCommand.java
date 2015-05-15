@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
 
 import lejos.hardware.Power;
 import lejos.remote.ev3.RemoteRequestSampleProvider;
@@ -12,9 +12,9 @@ import lejos.remote.ev3.RemoteRequestSampleProvider;
 /**
  * Created by AlbertoGarcia on 5/5/15.
  */
-public class GetPowerInfoCommand implements Command {
+public class GetSensorsInfoCommand implements Command {
 
-    private static final String TAG = GetPowerInfoCommand.class.getSimpleName();
+    private static final String TAG = GetSensorsInfoCommand.class.getSimpleName();
 
     private OnPowerInfo onPowerInfo;
 
@@ -24,7 +24,7 @@ public class GetPowerInfoCommand implements Command {
     private RemoteRequestSampleProvider colorSP;
 
 
-    public GetPowerInfoCommand(Power power, OnPowerInfo onPowerInfo, RemoteRequestSampleProvider touchSensorSP, RemoteRequestSampleProvider irSensorSP, RemoteRequestSampleProvider colorSP) {
+    public GetSensorsInfoCommand(Power power, OnPowerInfo onPowerInfo, RemoteRequestSampleProvider touchSensorSP, RemoteRequestSampleProvider irSensorSP, RemoteRequestSampleProvider colorSP) {
         this.power = power;
         this.onPowerInfo = onPowerInfo;
         this.touchSensorSP = touchSensorSP;
@@ -35,7 +35,6 @@ public class GetPowerInfoCommand implements Command {
     @Override
     public void run() {
         try {
-
             Log.e(TAG, "run()");
             int voltage = power.getVoltageMilliVolt();
             float currentDraw = power.getBatteryCurrent();
@@ -64,7 +63,6 @@ public class GetPowerInfoCommand implements Command {
             publish(voltage, currentDraw, (int) samples[0], (int) samples[1], (int) samples[2]);
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
