@@ -30,6 +30,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
     private float speedFactorCenter;
 
     private BrickInfo brickInfo;
+    private String ipAddress;
     private Power power;
     private LED led;
     public static int lastLedPattern = 0;
@@ -55,10 +56,11 @@ public class DroidEv3 extends RemoteRequestEV3 {
     }
 
     private void initializeComponents() {
+        ipAddress = brickInfo.getIPAddress();
         commandExecutor = CommandExecutor.getInstance();
         //openMotors();//Mirar de poner en onCreate del fragment Joystick.
         //setMotorsSpeed();
-        Log.d(TAG, "Components started correctly, ipAddress:" + brickInfo.getIPAddress() + " nameBrick: " + brickInfo.getName());
+        Log.d(TAG, "Components started correctly, ipAddress:" + ipAddress + " nameBrick: " + brickInfo.getName());
     }
 
     //BrickInfo:
@@ -75,7 +77,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
     //UploadFile:
     public void uploadFile(File file) {
         Log.d(TAG, "uploadFile() file name = " + file.getName());
-        commandExecutor.run(new UploadFileCommand(this, brickInfo.getIPAddress(), file));
+        commandExecutor.run(new UploadFileCommand(this, ipAddress, file));
     }
 
     //Led Control:

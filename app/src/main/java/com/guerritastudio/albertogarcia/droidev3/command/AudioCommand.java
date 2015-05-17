@@ -2,12 +2,10 @@ package com.guerritastudio.albertogarcia.droidev3.command;
 
 import android.util.Log;
 
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 
 import java.io.File;
-
-import lejos.hardware.Audio;
-import lejos.robotics.RegulatedMotor;
 
 /**
  * Created by AlbertoGarcia on 13/5/15.
@@ -29,9 +27,9 @@ public class AudioCommand implements Command {
         Log.e(TAG, "run()");
         try {
             //Play beep sound:
-            playBeep(0);
-            Log.d(TAG, " Playing file = " + file.getName());
-            droidEv3.getAudio().playSample(file);
+            //playBeep(0);
+            Log.d(TAG, " Playing file = " + ConstDroidEv3.AUDIO_DIRECTORY + file.getName());
+            droidEv3.getAudio().playSample(new File(ConstDroidEv3.AUDIO_DIRECTORY + file.getName()));
         } catch (Exception ioe) {
             Log.e(TAG, "IO Exception playing sound file");
             ioe.printStackTrace();

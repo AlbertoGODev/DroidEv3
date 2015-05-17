@@ -2,12 +2,14 @@ package com.guerritastudio.albertogarcia.droidev3.command;
 
 import android.util.Log;
 
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import lejos.hardware.Key;
 import lejos.remote.ev3.RemoteRequestMenu;
 
 /**
@@ -38,12 +40,12 @@ public class UploadFileCommand implements Command {
             droidEv3.disConnect();
             Log.e(TAG, "droidEv3 disConnect()");
             menu = new RemoteRequestMenu(host);
-            Log.e(TAG,"Menu created");
+            Log.e(TAG, "Menu created");
             FileInputStream in = new FileInputStream(file);
             byte[] data = new byte[(int) file.length()];
             in.read(data);
-            Log.d(TAG, " Uploading " + "/home/lejos/programs/" + file.getName());
-            menu.uploadFile("/home/lejos/programs/" + file.getName(), data);
+            Log.d(TAG, " Uploading " + ConstDroidEv3.AUDIO_DIRECTORY + file.getName());
+            menu.uploadFile(ConstDroidEv3.AUDIO_DIRECTORY + file.getName(), data);
             Log.d(TAG, "File upload correctly");
             in.close();
         } catch (IOException ioe) {

@@ -35,7 +35,8 @@
         <EditText
             android:id="@+id/connect_ipAddressET"
             android:gravity="center"
-            android:layout_width="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:digits="0123456789."

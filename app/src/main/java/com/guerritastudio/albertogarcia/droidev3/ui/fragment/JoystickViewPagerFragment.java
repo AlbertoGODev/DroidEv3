@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
-import com.guerritastudio.albertogarcia.droidev3.widget.JoystickView;
 import com.guerritastudio.albertogarcia.droidev3.widget.RegisterViewPager;
 
 import java.lang.ref.WeakReference;
@@ -26,18 +26,15 @@ import java.lang.ref.WeakReference;
  */
 public class JoystickViewPagerFragment extends BaseFragment implements AnalogJoystickFragment.PagerEnabled {
     private static final String TAG = JoystickViewPagerFragment.class.getSimpleName();
-    private static final String OPEN_MOTORS = "open_motors";
-    private static final String CLOSE_MOTORS = "close_motors";
 
     private RegisterViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private DroidEv3 droidEv3;
 
-
     public static JoystickViewPagerFragment newInstance(int sectionNumber) {
         JoystickViewPagerFragment fragment = new JoystickViewPagerFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DrawerActivity.KEY_SECTION_NUMBER, sectionNumber);
+        bundle.putInt(ConstDroidEv3.KEY_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,12 +47,12 @@ public class JoystickViewPagerFragment extends BaseFragment implements AnalogJoy
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((DrawerActivity) activity).onSectionAttached(
-                getArguments().getInt(DrawerActivity.KEY_SECTION_NUMBER));
+                getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
     }
 
     @Override
     public void onDestroy() {
-        new MotorsTask().execute(CLOSE_MOTORS);
+        new MotorsTask().execute(ConstDroidEv3.CLOSE_MOTORS);
         super.onDestroy();
         Log.e(TAG, "onDestroy");
     }
@@ -70,7 +67,7 @@ public class JoystickViewPagerFragment extends BaseFragment implements AnalogJoy
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         droidEv3 = getDroidEv3();
-        new MotorsTask().execute(OPEN_MOTORS);
+        new MotorsTask().execute(ConstDroidEv3.OPEN_MOTORS);
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), this);
         viewPager = (RegisterViewPager) view.findViewById(R.id.fragment_joystick_pager);
         viewPager.setAdapter(viewPagerAdapter);
@@ -131,11 +128,11 @@ public class JoystickViewPagerFragment extends BaseFragment implements AnalogJoy
 
             if (droidEv3 != null) {
                 Log.d(TAG, "doInBackground() params = " + params[0]);
-                if (params[0].equals(OPEN_MOTORS)) {
+                if (params[0].equals(ConstDroidEv3.OPEN_MOTORS)) {
                     droidEv3.openMotors();
                     droidEv3.setMotorsSpeed();
                 }
-                if (params[0].equals(CLOSE_MOTORS)) {
+                if (params[0].equals(ConstDroidEv3.CLOSE_MOTORS)) {
                     droidEv3.closeMotors();
                 }
             }

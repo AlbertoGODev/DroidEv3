@@ -1,45 +1,40 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.fragment;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 
-import lejos.hardware.BrickInfo;
-import lejos.remote.ev3.RemoteRequestMenu;
-
-
 public class TranslateFragment extends BaseFragment implements TextToSpeech.OnInitListener {
 
     private static final String TAG = TranslateFragment.class.getSimpleName();
-    private static final String FILE_NAME = "pruebas.wav";
     private TextView menuInfoTV;
-    private Button toSpeechBTN;
+    private ImageButton toSpeechBTN;
     private EditText toSpeechET;
     private TextToSpeech textToSpeech;
-    private RemoteRequestMenu menu;
 
     public static TranslateFragment newInstance(int sectionNumber) {
         TranslateFragment fragment = new TranslateFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DrawerActivity.KEY_SECTION_NUMBER, sectionNumber);
+        bundle.putInt(ConstDroidEv3.KEY_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -52,7 +47,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((DrawerActivity) activity).onSectionAttached(
-                getArguments().getInt(DrawerActivity.KEY_SECTION_NUMBER));
+                getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
     }
 
     @Override
@@ -96,7 +91,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
 
     private void bindView(View view) {
         menuInfoTV = (TextView) view.findViewById(R.id.fragment_translate_menu_info_tv);
-        toSpeechBTN = (Button) view.findViewById(R.id.to_speech_btn);
+        toSpeechBTN = (ImageButton) view.findViewById(R.id.to_speech_btn);
         toSpeechET = (EditText) view.findViewById(R.id.to_speech_et);
     }
 
@@ -104,7 +99,9 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
         toSpeechBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendText(toSpeechET.getText().toString());
+                if (toSpeechET.length() > 0) {
+                    sendText(toSpeechET.getText().toString());
+                }
             }
         });
         textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
@@ -122,8 +119,9 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
                 }*/
 
                 Log.e(TAG, "onDone");
-                uploadFile();
-
+                if (getDroidEv3() != null) {
+                    uploadFile();
+                }
             }
 
             @Override
@@ -131,32 +129,44 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
                 Log.e("TAG", "onError()");
             }
         });
+
+        toSpeechET.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    //Log.d(TAG, "onKey() = KEYCODE_ENTER");
+                    if (toSpeechET.length() > 0) {
+                        sendText(toSpeechET.getText().toString());
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     private void sendText(String text) {
         Log.d(TAG, "sendText()");
-        //textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);//To play speech in mobile.
-        HashMap<String, String> myHashRender = new HashMap<>();
-        String destFileName = getActivity().getCacheDir().getAbsolutePath() + "/" + FILE_NAME;
-        Log.e(TAG, "destFileName = " + destFileName);
-        myHashRender.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, text);
-        textToSpeech.synthesizeToFile(text, myHashRender, destFileName);
-        //int success = textToSpeech.synthesizeToFile(text, myHashRender, destFileName);
-/*        if (success == TextToSpeech.ERROR) {
-            Log.e(TAG, "error");
+
+        if (getDroidEv3() == null) {
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);//To play speech in mobile.
         } else {
-            Log.e(TAG, "success true");
-        }*/
+            HashMap<String, String> myHashRender = new HashMap<>();
+            String destFileName = getActivity().getCacheDir().getAbsolutePath() + "/" + ConstDroidEv3.AUDIO_FILE_NAME;
+            Log.e(TAG, "destFileName = " + destFileName);
+            myHashRender.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, text);
+            textToSpeech.synthesizeToFile(text, myHashRender, destFileName);
+        }
+        toSpeechET.setText("");
     }
 
     private void uploadFile() {
         try {
             Log.d(TAG, "UploadFile");
-            File file = new File(getActivity().getCacheDir(), FILE_NAME);
+            File file = new File(getActivity().getCacheDir(), ConstDroidEv3.AUDIO_FILE_NAME);
             getDroidEv3().uploadFile(file);
-
+            Log.e(TAG, "uploadFile finished");
             //Poner en el upload o mirar si espera que termine el upload.....
-            //getDroidEv3().playSpeech(file);//no funciona..
+            getDroidEv3().playSpeech(file);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

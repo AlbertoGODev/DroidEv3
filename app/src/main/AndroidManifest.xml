@@ -3,7 +3,6 @@
     package="com.guerritastudio.albertogarcia.droidev3">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.guerritastudio.albertogarcia.droidev3.app.MyApp"
@@ -13,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.ConnectActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name="com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity"
-            android:label="@string/title_activity_drawer"/>
+            android:label="@string/title_activity_drawer"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

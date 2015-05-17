@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.app.Utils;
 import com.guerritastudio.albertogarcia.droidev3.command.GetSensorsInfoCommand.OnPowerInfo;
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
@@ -45,19 +46,16 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     private ProgressBar progressBar3;
     private ProgressBar progressBar4;
     private ProgressBar progressBar5;
-    private final String[] ledPatterns = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private Spinner ledPatternSp;
-    private boolean ledFlag;
     private Timer timer;
-    public static boolean sensorsStatus = false;
-    private final String OPEN_SENSORS = "init";
-    private final String CLOSE_SENSORS = "close";
+    private boolean sensorsStatus = false;
+    private boolean ledFlag;
 
 
     public static InfoFragment newInstance(int sectionNumber) {
         InfoFragment fragment = new InfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DrawerActivity.KEY_SECTION_NUMBER, sectionNumber);
+        bundle.putInt(ConstDroidEv3.KEY_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -70,7 +68,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((DrawerActivity) activity).onSectionAttached(
-                getArguments().getInt(DrawerActivity.KEY_SECTION_NUMBER));
+                getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
     }
 
 
@@ -95,7 +93,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     public void onDestroy() {
         Log.e(TAG, "onDestroy()");
         if (sensorsStatus) {
-            new InfoTask().execute(CLOSE_SENSORS);
+            new InfoTask().execute(ConstDroidEv3.CLOSE_SENSORS);
         }
         super.onDestroy();
     }
@@ -111,10 +109,12 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         droidEv3 = getDroidEv3();
-        droidEv3.initPower();
-        droidEv3.initLed();
+        if (droidEv3 != null) {
+            droidEv3.initPower();
+            droidEv3.initLed();
+        }
         bindView(view);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, ledPatterns);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, ConstDroidEv3.LED_PATTERNS);
         ledPatternSp.setAdapter(spinnerArrayAdapter);
         setListeners();
     }
@@ -164,7 +164,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new InfoTask().execute(OPEN_SENSORS);
+                        new InfoTask().execute(ConstDroidEv3.OPEN_SENSORS);
                     }
                 } else {
                     // The toggle is disabled
@@ -172,7 +172,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new InfoTask().execute(CLOSE_SENSORS);
+                        new InfoTask().execute(ConstDroidEv3.CLOSE_SENSORS);
                     }
                 }
             }
@@ -255,12 +255,12 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         protected Void doInBackground(String... params) {
 
             Log.d(TAG, "doInBackground() params = " + params[0]);
-            if (params[0].equals(OPEN_SENSORS) && !sensorsStatus) {
+            if (params[0].equals(ConstDroidEv3.OPEN_SENSORS) && !sensorsStatus) {
                 Log.d(TAG, "doInBackground() Open Sensors");
                 droidEv3.openSensors();
                 sensorsStatus = true;
             }
-            if (params[0].equals(CLOSE_SENSORS) && sensorsStatus) {
+            if (params[0].equals(ConstDroidEv3.CLOSE_SENSORS) && sensorsStatus) {
                 sensorsStatus = false;
                 timer.cancel();
                 Log.d(TAG, "doInBackground() Close Sensors");
@@ -273,7 +273,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d(TAG, "onPostExecute sensorsStatus = " + sensorsStatus);
-            if (!isVisible())return;
+            if (!isVisible()) return;
             if (sensorsStatus) {
                 if (timer == null) {
                     timerInfo();

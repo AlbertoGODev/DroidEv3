@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
+import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
 /**
@@ -16,11 +17,10 @@ import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
  */
 public class StartFragment extends Fragment {
 
-
     public static StartFragment newInstance(int sectionNumber) {
         StartFragment fragment = new StartFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DrawerActivity.KEY_SECTION_NUMBER, sectionNumber);
+        bundle.putInt(ConstDroidEv3.KEY_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -29,11 +29,10 @@ public class StartFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((DrawerActivity)activity).onSectionAttached(getArguments().getInt(DrawerActivity.KEY_SECTION_NUMBER));
+        ((DrawerActivity)activity).onSectionAttached(getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
     }
 
     @Override
@@ -42,6 +41,5 @@ public class StartFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start, container, false);
     }
-
 
 }

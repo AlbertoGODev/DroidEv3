@@ -23,7 +23,6 @@ import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TranslateFragment;
 public class DrawerActivity extends BaseActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
-    public static final String KEY_SECTION_NUMBER = "key_section_number";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */

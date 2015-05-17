@@ -1,6 +1,5 @@
 package com.guerritastudio.albertogarcia.droidev3.ui.fragment;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -126,6 +125,14 @@ public class AnalogJoystickFragment extends BaseFragment {
                                 directionTextView.setText(R.string.left_front_lab);
                                 droidEv3.moveLeftForward(power);
                                 break;
+                            case 0:
+                                if (power > 0) {
+                                    directionTextView.setText("perfect_front_lab");
+                                    droidEv3.moveForward(power);
+                                } else {
+                                    droidEv3.stop();
+                                }
+                                break;
                             default:
                                 directionTextView.setText(R.string.center_lab);
                                 droidEv3.stop();
@@ -164,11 +171,11 @@ public class AnalogJoystickFragment extends BaseFragment {
     public Boolean checkMoves(int power, int direction) {
 
         if (direction != lastDirection) {
-            Log.e(TAG,"direction != lastDirection");
+            Log.e(TAG, "direction != lastDirection");
             return true;
         }
         if (direction == lastDirection && power != lastPower) {
-            Log.e(TAG,"direction == lastDirection && power != lastPower");
+            Log.e(TAG, "direction == lastDirection && power != lastPower");
             //if (power < lastPower || power > lastPower )
             return true;
         }

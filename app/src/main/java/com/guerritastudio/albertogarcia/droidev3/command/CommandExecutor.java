@@ -15,8 +15,8 @@ public class CommandExecutor implements Executor {
     private static final String TAG = CommandExecutor.class.getSimpleName();
 
     private static final int CORE_POOL_SIZE = 1;
-    private static final int MAX_POOL_SIZE = 1;
-    private static final int KEEP_ALIVE_TIME = 120;
+    private static final int MAX_POOL_SIZE = 2;//1
+    private static final int KEEP_ALIVE_TIME = 10;//120
     private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
     private static final BlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<Runnable>();
     private ThreadPoolExecutor threadPoolExecutor;
@@ -24,7 +24,7 @@ public class CommandExecutor implements Executor {
     private static CommandExecutor executor = null;
 
     public static CommandExecutor getInstance() {
-        Log.e(TAG,"getInstance");
+        Log.e(TAG, "getInstance");
         if (executor == null) {
             executor = new CommandExecutor();
         }
@@ -42,15 +42,20 @@ public class CommandExecutor implements Executor {
 
     @Override
     public void run(final Command command) {
-        Log.e(TAG,"run()");
-        if (command == null) {
-            throw new IllegalArgumentException("Interactor to execute can't be null");
-        }
-        threadPoolExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                command.run();
+        try {
+            Log.e(TAG, "run()");
+            if (command == null) {
+                throw new IllegalArgumentException("Interactor to execute can't be null");
             }
-        });
+            threadPoolExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "threadPoolExecutor.submit run()");
+                    command.run();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
