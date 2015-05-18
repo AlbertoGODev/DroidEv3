@@ -13,18 +13,20 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.guerritastudio.albertogarcia.droidev3.R;
+
 public class JoystickView extends View implements Runnable {
     private static final String TAG = JoystickView.class.getSimpleName();
     private final double RAD = 57.2957795D;
     public static final long DEFAULT_LOOP_INTERVAL = 100L;
     public static final int FRONT = 3;
-    public static final int FRONT_RIGHT = 4;
-    public static final int RIGHT = 5;
-    public static final int RIGHT_BOTTOM = 6;
+    public static final int FRONT_RIGHT = 2;
+    public static final int RIGHT = 1;
+    public static final int RIGHT_BOTTOM = 8;
     public static final int BOTTOM = 7;
-    public static final int BOTTOM_LEFT = 8;
-    public static final int LEFT = 1;
-    public static final int LEFT_FRONT = 2;
+    public static final int BOTTOM_LEFT = 6;
+    public static final int LEFT = 5;
+    public static final int LEFT_FRONT = 4;
     private JoystickView.OnJoystickMoveListener onJoystickMoveListener;
     private Thread thread = new Thread(this);
     private long loopInterval = 100L;
@@ -59,19 +61,19 @@ public class JoystickView extends View implements Runnable {
     protected void initJoyTest() {
         Log.d(TAG, "initJoystick");
         this.mainCircle = new Paint(1);
-        this.mainCircle.setColor(-1);
+        this.mainCircle.setColor(getResources().getColor(R.color.White));
         this.mainCircle.setStyle(Style.FILL_AND_STROKE);
         this.secondaryCircle = new Paint();
-        this.secondaryCircle.setColor(-16711936);
+        this.secondaryCircle.setColor(getResources().getColor(R.color.CadetBlue));
         this.secondaryCircle.setStyle(Style.STROKE);
         this.verticalLine = new Paint();
-        this.verticalLine.setStrokeWidth(5.0F);
-        this.verticalLine.setColor(-65536);
+        this.verticalLine.setStrokeWidth(2.0F);
+        this.verticalLine.setColor(getResources().getColor(R.color.Black));
         this.horizontalLine = new Paint();
         this.horizontalLine.setStrokeWidth(2.0F);
-        this.horizontalLine.setColor(-16777216);
+        this.horizontalLine.setColor(getResources().getColor(R.color.Black));
         this.button = new Paint(1);
-        this.button.setColor(-65536);
+        this.button.setColor(getResources().getColor(R.color.SteelBlue));
         this.button.setStyle(Style.FILL);
     }
 
@@ -82,8 +84,8 @@ public class JoystickView extends View implements Runnable {
         //Log.d(TAG, "onMeasure()");
         int d = Math.min(this.measure(widthMeasureSpec), this.measure(heightMeasureSpec));
         this.setMeasuredDimension(d, d);
-        this.xPosition = this.getWidth() / 2;
-        this.yPosition = this.getWidth() / 2;
+        this.xPosition = 200;// this.getWidth() / 2;
+        this.yPosition = 200;//this.getWidth() / 2;
         this.buttonRadius = (int) ((double) (d / 2) * 0.25D);
         this.joystickRadius = (int) ((double) (d / 2) * 0.75D);
     }
@@ -107,6 +109,8 @@ public class JoystickView extends View implements Runnable {
         //Log.d(TAG, "onDraw()");
         this.centerX = (double) (this.getWidth() / 2);
         this.centerY = (double) (this.getHeight() / 2);
+        //Log.d(TAG, "onDraw() centerX = "+centerX);
+        //Log.d(TAG, "onDraw() centerY = "+centerY);
         canvas.drawCircle((float) ((int) this.centerX), (float) ((int) this.centerY), (float) this.joystickRadius, this.mainCircle);
         canvas.drawCircle((float) ((int) this.centerX), (float) ((int) this.centerY), (float) (this.joystickRadius / 2), this.secondaryCircle);
         canvas.drawLine((float) this.centerX, (float) this.centerY, (float) this.centerX, (float) (this.centerY - (double) this.joystickRadius), this.verticalLine);

@@ -291,11 +291,11 @@ public class NavigationDrawerFragment extends BaseFragment {
         private static final int MENU_SECTIONS_ROW = 1;
 
         String[] menuSectionTitles = getResources().getStringArray(R.array.menu_sections);
-        int[] menuSectionImages = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        int[] menuSectionImages = new int[]{R.drawable.ic_to_speech_ev3, R.drawable.ic_joystick_ev3, R.drawable.ic_info_ev3};
 
         @Override
         public int getCount() {
-            return menuSectionTitles.length ;
+            return menuSectionTitles.length;
         }
 
         @Override
@@ -336,7 +336,7 @@ public class NavigationDrawerFragment extends BaseFragment {
                 //TODO Set name and ip from ev3:
                 if (getDroidEv3() != null) {
                     nameTV.setText(getDroidEv3().getBrickInfo().getName());
-                    ipAddressTV.setText(getDroidEv3().getBrickInfo().getIPAddress());
+                    ipAddressTV.setText("IPv4: " + getDroidEv3().getBrickInfo().getIPAddress());
                 }
 
 

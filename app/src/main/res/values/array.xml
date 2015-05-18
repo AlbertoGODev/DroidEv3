@@ -4,10 +4,9 @@
     <!--Navigation Drawer-->
     <array name="menu_sections">
         <item>Inicio</item>
-        <item>Traductor</item>
+        <item>Texto a voz</item>
         <item>Joystick</item>
         <item>Información</item>
     </array>
-
 
 </resources>

@@ -195,5 +195,7 @@
     <color name="transparentBlack">#33000000</color>
     <color name="transparentDarkBlack">#AA000000</color>
 	<color name="btn_bg_pressed_mask">#19000000</color>
+
+    <color name="background_pager">#33b5e5</color>
     
 </resources>

@@ -1,82 +1,91 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin_l"
     tools:context="com.guerritastudio.albertogarcia.droidev3.ui.fragment.DigitalJoystickFragment">
 
-
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/fragment_digital_joystick_ll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/forward"
-        android:id="@+id/fragment_joystick_forward_btn"
-        android:layout_above="@+id/fragment_joystick_stop_btn"
-        android:layout_alignRight="@+id/fragment_joystick_stop_btn"
-        android:layout_alignEnd="@+id/fragment_joystick_stop_btn"
-        android:layout_marginBottom="46dp" />
+        android:layout_marginTop="@dimen/margin_xl"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fragment_joystick_setvelocity"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_button"
+            android:padding="@dimen/padding_s"
+            android:text="@string/set_speed" />
+
+        <EditText
+            android:id="@+id/fragment_joystick_et"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin_l"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/fragment_joystick_shoot_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_button"
+            android:text="@string/shoot" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/fragment_digital_joystick_ll">
+
+        <Button
+            android:id="@+id/fragment_joystick_forward_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fragment_joystick_stop_btn"
+            android:layout_alignEnd="@+id/fragment_joystick_stop_btn"
+            android:layout_alignRight="@+id/fragment_joystick_stop_btn"
+            android:layout_marginBottom="46dp"
+            android:text="@string/forward" />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/right"
-        android:id="@+id/fragment_joystick_right_btn"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <Button
+            android:id="@+id/fragment_joystick_right_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/right" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stop"
-        android:id="@+id/fragment_joystick_stop_btn"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/fragment_joystick_stop_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/stop" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/left"
-        android:id="@+id/fragment_joystick_left_btn"
-        android:layout_above="@+id/fragment_joystick_backward_btn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/fragment_joystick_left_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fragment_joystick_backward_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/left" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/backward"
-        android:id="@+id/fragment_joystick_backward_btn"
-        android:layout_below="@+id/fragment_joystick_stop_btn"
-        android:layout_alignLeft="@+id/fragment_joystick_stop_btn"
-        android:layout_alignStart="@+id/fragment_joystick_stop_btn"
-        android:layout_marginTop="52dp" />
+        <Button
+            android:id="@+id/fragment_joystick_backward_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/fragment_joystick_stop_btn"
+            android:layout_alignStart="@+id/fragment_joystick_stop_btn"
+            android:layout_below="@+id/fragment_joystick_stop_btn"
+            android:layout_marginTop="52dp"
+            android:text="@string/backward" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set_speed"
-        android:id="@+id/fragment_joystick_setvelocity"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_joystick_et"
-        android:inputType="number"
-        android:layout_alignBottom="@+id/fragment_joystick_setvelocity"
-        android:layout_toRightOf="@+id/fragment_joystick_setvelocity"
-        android:layout_alignRight="@+id/fragment_joystick_forward_btn"
-        android:layout_alignEnd="@+id/fragment_joystick_forward_btn" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/shoot"
-        android:id="@+id/fragment_joystick_shoot_btn"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/fragment_joystick_right_btn"
-        android:layout_alignEnd="@+id/fragment_joystick_right_btn" />
+    </RelativeLayout>
 
 </RelativeLayout>

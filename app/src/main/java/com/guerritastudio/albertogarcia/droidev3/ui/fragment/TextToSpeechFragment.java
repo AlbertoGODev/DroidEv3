@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,23 +22,23 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class TranslateFragment extends BaseFragment implements TextToSpeech.OnInitListener {
+public class TextToSpeechFragment extends BaseFragment implements TextToSpeech.OnInitListener {
 
-    private static final String TAG = TranslateFragment.class.getSimpleName();
-    private TextView menuInfoTV;
+    private static final String TAG = TextToSpeechFragment.class.getSimpleName();
+    private TextView languageInfoTV;
     private ImageButton toSpeechBTN;
     private EditText toSpeechET;
     private TextToSpeech textToSpeech;
 
-    public static TranslateFragment newInstance(int sectionNumber) {
-        TranslateFragment fragment = new TranslateFragment();
+    public static TextToSpeechFragment newInstance(int sectionNumber) {
+        TextToSpeechFragment fragment = new TextToSpeechFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ConstDroidEv3.KEY_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public TranslateFragment() {
+    public TextToSpeechFragment() {
         // Required empty public constructor
     }
 
@@ -60,6 +59,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             textToSpeech.setLanguage(Locale.getDefault());
+            languageInfoTV.setText(String.format(getString(R.string.language_info),Locale.getDefault()));
         } else if (status == TextToSpeech.ERROR) {
             Log.e(TAG, "Error occurred while initializing Text-To-Speech engine");
         }
@@ -79,7 +79,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_translate, container, false);
+        return inflater.inflate(R.layout.fragment_text_to_speech, container, false);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
     }
 
     private void bindView(View view) {
-        menuInfoTV = (TextView) view.findViewById(R.id.fragment_translate_menu_info_tv);
+        languageInfoTV = (TextView) view.findViewById(R.id.fragment_translate_language_info_tv);
         toSpeechBTN = (ImageButton) view.findViewById(R.id.to_speech_btn);
         toSpeechET = (EditText) view.findViewById(R.id.to_speech_et);
     }
@@ -139,7 +139,7 @@ public class TranslateFragment extends BaseFragment implements TextToSpeech.OnIn
                         sendText(toSpeechET.getText().toString());
                     }
                 }
-                return true;
+                return false;
             }
         });
     }

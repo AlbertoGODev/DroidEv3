@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
@@ -23,6 +24,7 @@ public class AnalogJoystickFragment extends BaseFragment {
     private TextView powerTextView;
     private TextView directionTextView;
     private JoystickView joystick;
+    private Button shootBtn;
 
     private int lastDirection = 0;
     private int lastPower = 0;
@@ -72,10 +74,19 @@ public class AnalogJoystickFragment extends BaseFragment {
         powerTextView = (TextView) view.findViewById(R.id.powerTextView);
         directionTextView = (TextView) view.findViewById(R.id.directionTextView);
         joystick = (JoystickView) view.findViewById(R.id.joystickView);
+        shootBtn = (Button) view.findViewById(R.id.fragment_analog_joystick_shoot_btn);
     }
 
 
     private void setListeners() {
+        shootBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (droidEv3 != null) {
+                    droidEv3.shoot();
+                }
+            }
+        });
         //Event listener that always returns the variation of the angle in degrees, motion power in percentage and direction of movement
         joystick.setOnJoystickMoveListener(new JoystickView.OnJoystickMoveListener() {
 
@@ -86,10 +97,12 @@ public class AnalogJoystickFragment extends BaseFragment {
                 powerTextView.setText(" " + String.valueOf(power) + "%");
 
                 Log.d(TAG, "lastDirecion = " + lastDirection + " lastPower=" + lastPower);
+
                 if (checkMoves(power, direction)) {
                     Log.e(TAG, "lastDirection and lastPower changed");
                     lastDirection = direction;
                     lastPower = power;
+
 
                     if (droidEv3 != null) {
                         switch (direction) {
@@ -140,6 +153,7 @@ public class AnalogJoystickFragment extends BaseFragment {
                     }
                 }
             }
+
         }, JoystickView.DEFAULT_LOOP_INTERVAL);
 
         joystick.setOnTouchListener(new View.OnTouchListener() {

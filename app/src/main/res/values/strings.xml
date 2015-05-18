@@ -41,6 +41,10 @@
     <string name="navigation_drawer_open">Abrir menú lateral</string>
     <string name="navigation_drawer_close">Cerrar menú lateral</string>
 
+    <!--Drawer Header-->
+    <string name="my_name">Alberto García Olivero</string>
+    <string name="ip_v4">IPv4: 192.168.1.1</string>
+
     <!-- View Pager -->
     <string name="title_strip_digital_joystick">Digital</string>
     <string name="title_strip_analog_stick">Analógico</string>
@@ -63,14 +67,15 @@
     <string name="sensors">Sensores</string>
     <string name="values">Valores</string>
     <string name="leds">Leds</string>
-    
+
     <!--Fragment To Speech-->
-    
+
     <string name="insert_text_here">Inserte su texto aquí</string>
     <string name="to_speech">To speech</string>
+    <string name="language_info">Idioma Local : %1$s</string>
 
 
-<!-- TODO: Remove or change this joystick text -->
+    <!-- TODO: Remove or change this joystick text -->
     <string name="front_lab">front_lab</string>
     <string name="front_right_lab">front_right_lab</string>
     <string name="right_lab">right_lab</string>
@@ -90,10 +95,5 @@
     <string name="color_s_white">Blanco</string>
     <string name="color_s_black">Negro</string>
     <string name="color_s_brown">Marrón</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 
 </resources>

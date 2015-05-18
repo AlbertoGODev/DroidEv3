@@ -18,7 +18,7 @@ import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.JoystickViewPagerFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.StartFragment;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.NavigationDrawerFragment;
-import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TranslateFragment;
+import com.guerritastudio.albertogarcia.droidev3.ui.fragment.TextToSpeechFragment;
 
 public class DrawerActivity extends BaseActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -78,7 +78,7 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
                 break;
             case 1:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 1");
-                fragmentManager.beginTransaction().replace(R.id.content_frame, TranslateFragment.newInstance(position)).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, TextToSpeechFragment.newInstance(position)).commit();
                 break;
             case 2:
                 Log.d(TAG, "onNavigationDrawerItemSelected() = case 2");

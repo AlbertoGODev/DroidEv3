@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:layout_width="@dimen/navigation_drawer_width"
+    android:layout_height="64dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_m"
-    android:paddingTop="@dimen/margin_m"
     android:paddingLeft="@dimen/margin_l"
     android:paddingRight="@dimen/margin_l"
-    android:layout_height="64dp">
+    android:paddingTop="@dimen/margin_m">
 
     <ImageView
         android:id="@+id/row_menu_drawer_item_iv"
-        android:scaleType="centerCrop"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_info_ev3"
+        />
 
     <TextView
-        android:layout_marginLeft="@dimen/margin_m"
-        android:lines="1"
-        android:ellipsize="end"
+        android:layout_marginLeft="@dimen/margin_l"
+        android:id="@+id/row_menu_drawer_item_tv"
         android:layout_width="0dp"
-        android:layout_weight="7"
         android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="Información"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black"
-        android:text="Medium"
-        android:id="@+id/row_menu_drawer_item_tv" />
+        android:textColor="@color/black" />
 
     <!--<IconTextView
         android:gravity="end"
