@@ -50,11 +50,6 @@ public class DroidEv3 extends RemoteRequestEV3 {
         initializeComponents();
     }
 
-    public DroidEv3(String ip) throws IOException {
-        super(ip);
-        Log.d(TAG, "DroidEv3(ip) constructor");
-    }
-
     private void initializeComponents() {
         ipAddress = brickInfo.getIPAddress();
         commandExecutor = CommandExecutor.getInstance();
@@ -143,6 +138,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
         regulatedMotorLeft = createRegulatedMotor("B", 'L');
         regulatedMotorRight = createRegulatedMotor("C", 'L');
         regulatedMotorCenter = createRegulatedMotor("A", 'L');
+        Log.d(TAG,"Motors opened");
     }
 
     public void setMotorsSpeed() {

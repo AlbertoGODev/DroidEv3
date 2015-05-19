@@ -291,7 +291,7 @@ public class NavigationDrawerFragment extends BaseFragment {
         private static final int MENU_SECTIONS_ROW = 1;
 
         String[] menuSectionTitles = getResources().getStringArray(R.array.menu_sections);
-        int[] menuSectionImages = new int[]{R.drawable.ic_to_speech_ev3, R.drawable.ic_joystick_ev3, R.drawable.ic_info_ev3};
+        int[] menuSectionImages = new int[]{R.drawable.ic_text_to_speech, R.drawable.ic_joystick, R.drawable.ic_info};
 
         @Override
         public int getCount() {

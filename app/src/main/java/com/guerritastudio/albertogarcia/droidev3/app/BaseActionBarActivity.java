@@ -27,6 +27,7 @@ public class BaseActionBarActivity extends ActionBarActivity {
         DroidEv3 droidEv3 = myApp.getDroidEv3();
         if (droidEv3 != null) {
             droidEv3.disConnect();
+            setDroidEv3(null);
         }
     }
 }

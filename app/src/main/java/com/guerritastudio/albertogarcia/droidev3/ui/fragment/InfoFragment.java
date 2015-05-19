@@ -24,6 +24,7 @@ import com.guerritastudio.albertogarcia.droidev3.command.GetSensorsInfoCommand.O
 import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -82,7 +83,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(TAG, "onPause()");
+        //Log.e(TAG, "onPause()");
 /*        if (timer != null) {
             timer.cancel();
             timer = null;
@@ -94,6 +95,11 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         Log.e(TAG, "onDestroy()");
         if (sensorsStatus) {
             new InfoTask().execute(ConstDroidEv3.CLOSE_SENSORS);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         super.onDestroy();
     }
@@ -256,6 +262,15 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
 
             Log.d(TAG, "doInBackground() params = " + params[0]);
             if (params[0].equals(ConstDroidEv3.OPEN_SENSORS) && !sensorsStatus) {
+                //Reconnect para asegurar la conexión.
+                try {
+                    droidEv3.disConnect();
+                    droidEv3.reConnect();
+                    droidEv3.initPower();
+                    droidEv3.initLed();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Log.d(TAG, "doInBackground() Open Sensors");
                 droidEv3.openSensors();
                 sensorsStatus = true;

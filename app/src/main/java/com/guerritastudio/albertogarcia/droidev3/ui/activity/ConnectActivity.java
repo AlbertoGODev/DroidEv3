@@ -96,6 +96,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
                 if (ipAddressET.getText().toString().equals("123")) {
                     Log.e(TAG, " Mode Demo");
                     startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
+                    finish();
                 } else {
                     connectWithEv3();
                 }
