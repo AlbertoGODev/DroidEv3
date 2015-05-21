@@ -55,13 +55,6 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
     protected void onDestroy() {
         super.onDestroy();
         Log.e(TAG, "onDestroy()");
-
-        // getDroidEv3().closeSensors();//Hay que cerrarlos en la pregunta....
-/*        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         disconnectDroidEv3();
     }
 
@@ -125,11 +118,6 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-/*        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
         if (id == R.id.action_disconnect) {
             Log.d(TAG, "onOptionsItemSelected() action_disconnect");
             exitAlertDialog();
@@ -153,9 +141,8 @@ public class DrawerActivity extends BaseActionBarActivity implements NavigationD
             public void onClick(DialogInterface dialogo1, int id) {
                 try {
                     if (getDroidEv3() != null) {
-                        //getDroidEv3().closeSensors();
-                        //Thread.sleep(500);//Necessary to closeSensors().
-                        //disconnectDroidEv3();
+                        Thread.sleep(500);//Necessary to closeSensors().
+                        getDroidEv3().playBeep(2);
                     }
                     startActivity(new Intent(DrawerActivity.this, ConnectActivity.class));
                     finish();

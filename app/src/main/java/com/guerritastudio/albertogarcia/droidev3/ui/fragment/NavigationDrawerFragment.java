@@ -333,7 +333,6 @@ public class NavigationDrawerFragment extends BaseFragment {
                 TextView nameTV = (TextView) convertView.findViewById(R.id.row_menu_drawer_header_name_tv);
                 TextView ipAddressTV = (TextView) convertView.findViewById(R.id.row_menu_drawer_header_ip_address);
 
-                //TODO Set name and ip from ev3:
                 if (getDroidEv3() != null) {
                     nameTV.setText(getDroidEv3().getBrickInfo().getName());
                     ipAddressTV.setText("IPv4: " + getDroidEv3().getBrickInfo().getIPAddress());

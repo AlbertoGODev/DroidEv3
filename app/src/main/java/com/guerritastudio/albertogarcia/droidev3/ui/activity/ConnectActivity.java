@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseActionBarActivity;
 import com.guerritastudio.albertogarcia.droidev3.app.Utils;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.task.ConnectionTask;
 import com.guerritastudio.albertogarcia.droidev3.ui.fragment.SearchEv3DialogFragment;
 
@@ -42,7 +42,6 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
         setContentView(R.layout.activity_connect);
         bindView();
         setListeners();
-
     }
 
     @Override
@@ -59,7 +58,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.connect_ev3_btn:
-                //Para entrar sin conectar:
+                //To enter in demo mode:
                 if (ipAddressET.getText().toString().equals("123")) {
                     Log.e(TAG, " Mode Demo");
                     startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));
@@ -92,7 +91,7 @@ public class ConnectActivity extends BaseActionBarActivity implements View.OnCli
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 Log.d(TAG, "setListeners()------->onEditorAction()");
-                //Para entrar sin conectar:
+                //To enter in demo mode:
                 if (ipAddressET.getText().toString().equals("123")) {
                     Log.e(TAG, " Mode Demo");
                     startActivity(new Intent(ConnectActivity.this, DrawerActivity.class));

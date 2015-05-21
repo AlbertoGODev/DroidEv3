@@ -2,7 +2,7 @@ package com.guerritastudio.albertogarcia.droidev3.command;
 
 import android.util.Log;
 
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 
 import lejos.hardware.LED;
 

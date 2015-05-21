@@ -3,9 +3,7 @@ package com.guerritastudio.albertogarcia.droidev3.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
-
-import java.io.IOException;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
@@ -36,7 +34,7 @@ public abstract class ConnectionTask extends AsyncTask<String, Void, DroidEv3> {
 
             for (int i = 0; i < devices.length; i++) {
                 BrickInfo brickInfo = devices[i];
-                if (brickInfo.getIPAddress().equals(ip)){
+                if (brickInfo.getIPAddress().equals(ip)) {
                     Log.e(TAG, "BrickFinder has been discover!!!");
                     return new DroidEv3(brickInfo);
                 }

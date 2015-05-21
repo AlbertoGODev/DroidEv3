@@ -15,9 +15,9 @@ public class StopCommand implements Command {
     private RegulatedMotor rightMotorRegulator;
 
 
-    public StopCommand(RegulatedMotor leftMotorRegulator, RegulatedMotor rightMotorRegulator){
-        if (leftMotorRegulator == null || rightMotorRegulator == null){
-            throw new NullPointerException(TAG+" motor cannot be null");
+    public StopCommand(RegulatedMotor leftMotorRegulator, RegulatedMotor rightMotorRegulator) {
+        if (leftMotorRegulator == null || rightMotorRegulator == null) {
+            throw new NullPointerException(TAG + " motor cannot be null");
         }
         this.leftMotorRegulator = leftMotorRegulator;
         this.rightMotorRegulator = rightMotorRegulator;
@@ -25,9 +25,10 @@ public class StopCommand implements Command {
 
     @Override
     public void run() {
-        Log.e(TAG,"run()");
+        Log.e(TAG, "run()");
         leftMotorRegulator.setSpeed(0);
         rightMotorRegulator.setSpeed(0);
+
         leftMotorRegulator.stop(true);
         rightMotorRegulator.stop(true);
     }

@@ -1,4 +1,4 @@
-package com.guerritastudio.albertogarcia.droidev3.model;
+package com.guerritastudio.albertogarcia.droidev3.controller;
 
 
 import android.util.Log;
@@ -25,20 +25,13 @@ public class DroidEv3 extends RemoteRequestEV3 {
     public static final int MY_DEFAULT_SPEED = 10;
     private static final int DEFAULT_SHOOT_SPEED = 100;
 
-    private float speedFactorLeft;
-    private float speedFactorRight;
-    private float speedFactorCenter;
-
+    private float speedFactorLeft, speedFactorRight, speedFactorCenter;
     private BrickInfo brickInfo;
     private String ipAddress;
     private Power power;
     private LED led;
     public static int lastLedPattern = 0;
-
-    RemoteRequestSampleProvider touchSensorSP;
-    RemoteRequestSampleProvider irSensorSP;
-    RemoteRequestSampleProvider colorSP;
-
+    private RemoteRequestSampleProvider touchSensorSP, irSensorSP, colorSP;
     private RegulatedMotor regulatedMotorLeft, regulatedMotorRight, regulatedMotorCenter;
     private CommandExecutor commandExecutor;
 
@@ -53,8 +46,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
     private void initializeComponents() {
         ipAddress = brickInfo.getIPAddress();
         commandExecutor = CommandExecutor.getInstance();
-        //openMotors();//Mirar de poner en onCreate del fragment Joystick.
-        //setMotorsSpeed();
+        playBeep(3);
         Log.d(TAG, "Components started correctly, ipAddress:" + ipAddress + " nameBrick: " + brickInfo.getName());
     }
 
@@ -66,7 +58,13 @@ public class DroidEv3 extends RemoteRequestEV3 {
     //PlaySample:
     public void playSpeech(File file) {
         Log.d(TAG, "playSpeech() file name = " + file.getName());
-        commandExecutor.run(new AudioCommand(this, file));
+        commandExecutor.run(new ToSpeechCommand(this, file));
+    }
+
+    //PlayBeep:
+    public void playBeep(int aCode) {
+        Log.d(TAG, "playBeep");
+        commandExecutor.run(new PlayBeepCommand(this, aCode));
     }
 
     //UploadFile:
@@ -138,7 +136,7 @@ public class DroidEv3 extends RemoteRequestEV3 {
         regulatedMotorLeft = createRegulatedMotor("B", 'L');
         regulatedMotorRight = createRegulatedMotor("C", 'L');
         regulatedMotorCenter = createRegulatedMotor("A", 'L');
-        Log.d(TAG,"Motors opened");
+        Log.d(TAG, "Motors opened");
     }
 
     public void setMotorsSpeed() {
@@ -172,19 +170,10 @@ public class DroidEv3 extends RemoteRequestEV3 {
             regulatedMotorRight = null;
             regulatedMotorCenter.close();
             regulatedMotorCenter = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void setSpeed(int speed) {
-        Log.d(TAG, "setSpeed ");
-        int speedToLeft = (int) (speed * speedFactorLeft);
-        int speedToRight = (int) (speed * speedFactorRight);
-
-        commandExecutor.run(new SetSpeedCommand(regulatedMotorLeft, regulatedMotorRight, speedToLeft, speedToRight));
-    }
-
 
     //Move commands:
 

@@ -84,8 +84,8 @@ public class JoystickView extends View implements Runnable {
         //Log.d(TAG, "onMeasure()");
         int d = Math.min(this.measure(widthMeasureSpec), this.measure(heightMeasureSpec));
         this.setMeasuredDimension(d, d);
-        this.xPosition = 200;// this.getWidth() / 2;
-        this.yPosition = 200;//this.getWidth() / 2;
+        this.xPosition = this.getWidth() / 2;//200 Note2
+        this.yPosition = this.getWidth() / 2;//200 Note2
         this.buttonRadius = (int) ((double) (d / 2) * 0.25D);
         this.joystickRadius = (int) ((double) (d / 2) * 0.75D);
     }

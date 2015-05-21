@@ -3,13 +3,12 @@ package com.guerritastudio.albertogarcia.droidev3.command;
 import android.util.Log;
 
 import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import lejos.hardware.Key;
 import lejos.remote.ev3.RemoteRequestMenu;
 
 /**
@@ -21,7 +20,7 @@ public class UploadFileCommand implements Command {
     private RemoteRequestMenu menu;
     private String host;
     private File file;
-    DroidEv3 droidEv3;
+    private DroidEv3 droidEv3;
 
 
     public UploadFileCommand(DroidEv3 droidEv3, String host, File file) {

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 import com.guerritastudio.albertogarcia.droidev3.widget.RegisterViewPager;
 

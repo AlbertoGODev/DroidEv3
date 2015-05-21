@@ -32,7 +32,7 @@ public class StartFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((DrawerActivity)activity).onSectionAttached(getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
+        ((DrawerActivity) activity).onSectionAttached(getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
     }
 
     @Override
@@ -41,5 +41,4 @@ public class StartFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start, container, false);
     }
-
 }

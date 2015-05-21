@@ -2,7 +2,7 @@ package com.guerritastudio.albertogarcia.droidev3.app;
 
 import android.app.Application;
 
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 
 /**
  * Created by AlbertoGarcia on 23/4/15.

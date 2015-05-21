@@ -13,9 +13,9 @@ public class ShootCommand implements Command {
 
     private RegulatedMotor regulatedMotorCenter;
 
-    public ShootCommand(RegulatedMotor regulatedMotorCenter){
-        if (regulatedMotorCenter == null){
-            throw new NullPointerException(TAG+" motor cannot be null");
+    public ShootCommand(RegulatedMotor regulatedMotorCenter) {
+        if (regulatedMotorCenter == null) {
+            throw new NullPointerException(TAG + " motor cannot be null");
         }
         this.regulatedMotorCenter = regulatedMotorCenter;
     }

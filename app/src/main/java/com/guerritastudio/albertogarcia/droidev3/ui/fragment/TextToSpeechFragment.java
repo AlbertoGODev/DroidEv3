@@ -59,7 +59,7 @@ public class TextToSpeechFragment extends BaseFragment implements TextToSpeech.O
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             textToSpeech.setLanguage(Locale.getDefault());
-            languageInfoTV.setText(String.format(getString(R.string.language_info),Locale.getDefault()));
+            languageInfoTV.setText(String.format(getString(R.string.language_info), Locale.getDefault()));
         } else if (status == TextToSpeech.ERROR) {
             Log.e(TAG, "Error occurred while initializing Text-To-Speech engine");
         }
@@ -165,7 +165,6 @@ public class TextToSpeechFragment extends BaseFragment implements TextToSpeech.O
             File file = new File(getActivity().getCacheDir(), ConstDroidEv3.AUDIO_FILE_NAME);
             getDroidEv3().uploadFile(file);
             Log.e(TAG, "uploadFile finished");
-            //Poner en el upload o mirar si espera que termine el upload.....
             getDroidEv3().playSpeech(file);
 
         } catch (Exception e) {

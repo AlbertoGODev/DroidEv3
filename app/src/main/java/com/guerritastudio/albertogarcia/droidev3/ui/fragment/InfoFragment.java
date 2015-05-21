@@ -21,7 +21,7 @@ import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
 import com.guerritastudio.albertogarcia.droidev3.app.ConstDroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.app.Utils;
 import com.guerritastudio.albertogarcia.droidev3.command.GetSensorsInfoCommand.OnPowerInfo;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 import com.guerritastudio.albertogarcia.droidev3.ui.activity.DrawerActivity;
 
 import java.io.IOException;
@@ -70,24 +70,6 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         super.onAttach(activity);
         ((DrawerActivity) activity).onSectionAttached(
                 getArguments().getInt(ConstDroidEv3.KEY_SECTION_NUMBER));
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e(TAG, "onResume()");
-        //new InfoTask().execute(OPEN_SENSORS);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Log.e(TAG, "onPause()");
-/*        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }*/
     }
 
     @Override
@@ -262,7 +244,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
 
             Log.d(TAG, "doInBackground() params = " + params[0]);
             if (params[0].equals(ConstDroidEv3.OPEN_SENSORS) && !sensorsStatus) {
-                //Reconnect para asegurar la conexión.
+                //Reconnect to security connection.
                 try {
                     droidEv3.disConnect();
                     droidEv3.reConnect();
@@ -296,7 +278,6 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                 }
             } else {
                 if (timer != null) {
-                    //timer.cancel();//Comprobar que no falla por si se cierran antes de que pare el timer....PUESTO ANTES.........
                     Log.d(TAG, "onPostExecute timer canceled");
                     timer = null;
                     setTextsTV(getResources().getString(R.string.off));

@@ -4,8 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.guerritastudio.albertogarcia.droidev3.ui.fragment.InfoFragment;
-
 import lejos.hardware.Power;
 import lejos.remote.ev3.RemoteRequestSampleProvider;
 

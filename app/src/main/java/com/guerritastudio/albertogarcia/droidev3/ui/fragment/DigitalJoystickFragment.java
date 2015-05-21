@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.guerritastudio.albertogarcia.droidev3.R;
 import com.guerritastudio.albertogarcia.droidev3.app.BaseFragment;
-import com.guerritastudio.albertogarcia.droidev3.model.DroidEv3;
+import com.guerritastudio.albertogarcia.droidev3.controller.DroidEv3;
 
 
 public class DigitalJoystickFragment extends BaseFragment implements View.OnClickListener {

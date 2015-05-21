@@ -13,29 +13,29 @@ public class GoLeftCommand implements Command {
 
     private RegulatedMotor leftMotorRegulator;
     private RegulatedMotor rightMotorRegulator;
-    //TODO TO TEST:
-    int speedToLeft;
-    int speedToRight;
+
+    private int speedToLeft;
+    private int speedToRight;
 
 
-    public GoLeftCommand(RegulatedMotor leftMotorRegulator, RegulatedMotor rightMotorRegulator, int speedToLeft, int speedToRight){
-        if (leftMotorRegulator == null || rightMotorRegulator == null){
-            throw new NullPointerException(TAG+" motor cannot be null");
+    public GoLeftCommand(RegulatedMotor leftMotorRegulator, RegulatedMotor rightMotorRegulator, int speedToLeft, int speedToRight) {
+        if (leftMotorRegulator == null || rightMotorRegulator == null) {
+            throw new NullPointerException(TAG + " motor cannot be null");
         }
-        this.leftMotorRegulator = leftMotorRegulator;
-        this.rightMotorRegulator = rightMotorRegulator;
-
-        //TODO TO TEST:
         this.speedToLeft = speedToLeft;
         this.speedToRight = speedToRight;
+
+        this.leftMotorRegulator = leftMotorRegulator;
+        this.rightMotorRegulator = rightMotorRegulator;
     }
 
     @Override
     public void run() {
-        Log.e(TAG,"run()");
+        Log.e(TAG, "run()");
 
         leftMotorRegulator.setSpeed(speedToLeft);
         rightMotorRegulator.setSpeed(speedToRight);
+
         leftMotorRegulator.backward();
         rightMotorRegulator.forward();
     }

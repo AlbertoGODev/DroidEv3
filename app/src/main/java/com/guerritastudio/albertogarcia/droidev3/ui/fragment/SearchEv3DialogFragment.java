@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.BrickInfo;
 
@@ -41,7 +40,7 @@ public class SearchEv3DialogFragment extends DialogFragment implements View.OnCl
     private SearchEv3DialogFragmentListAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     // Use this instance of the interface to deliver action events
-    SearchEv3DialogListener mListener;
+    private SearchEv3DialogListener mListener;
 
 
     // Override the Fragment.onAttach() method to instantiate the SearchEv3DialogListener
@@ -151,7 +150,6 @@ public class SearchEv3DialogFragment extends DialogFragment implements View.OnCl
         protected BrickInfo[] doInBackground(Void... params) {
             try {
                 devices = null;
-                //BrickFinder.discoverNXT();
                 devices = BrickFinder.discover();
                 Log.e("SearchTask() ", " devices:" + devices.length);
             } catch (IOException e) {
