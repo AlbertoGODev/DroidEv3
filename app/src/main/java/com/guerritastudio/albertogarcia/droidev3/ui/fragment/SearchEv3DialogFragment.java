@@ -159,8 +159,8 @@ public class SearchEv3DialogFragment extends DialogFragment implements View.OnCl
         }
 
         @Override
-        protected void onPostExecute(BrickInfo[] brickInfos) {
-            super.onPostExecute(brickInfos);
+        protected void onPostExecute(BrickInfo[] bricksInfo) {
+            super.onPostExecute(bricksInfo);
             Log.d(TAG, "onPostExecute() ");
             if (devices != null) {
                 adapter.setListEV3(brickInfoToList());

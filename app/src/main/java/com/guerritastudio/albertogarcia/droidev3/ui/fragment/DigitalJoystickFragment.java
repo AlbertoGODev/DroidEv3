@@ -95,7 +95,6 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
         Log.d(TAG, "onClick()");
 
         if (droidEv3 != null) {
-            //droidEv3.playBeep(1);
             switch (v.getId()) {
                 case R.id.fragment_joystick_stop_btn:
                     Log.d(TAG, "onClick stop");
@@ -122,7 +121,7 @@ public class DigitalJoystickFragment extends BaseFragment implements View.OnClic
                     setSpeed();
                     return;
                 case R.id.fragment_joystick_shoot_btn:
-                    Log.d(TAG,"onClick shoot");
+                    Log.d(TAG, "onClick shoot");
                     droidEv3.shoot();
                     return;
             }

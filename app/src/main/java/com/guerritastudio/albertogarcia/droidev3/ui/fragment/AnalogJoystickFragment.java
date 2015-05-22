@@ -140,7 +140,7 @@ public class AnalogJoystickFragment extends BaseFragment {
                                 break;
                             case 0:
                                 if (power > 0) {
-                                    directionTextView.setText("perfect_front_lab");
+                                    directionTextView.setText(R.string.perfect_center_lab);
                                     droidEv3.moveForward(power);
                                 } else {
                                     droidEv3.stop();

@@ -76,7 +76,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
     public void onDestroy() {
         Log.e(TAG, "onDestroy()");
         if (sensorsStatus) {
-            new InfoTask().execute(ConstDroidEv3.CLOSE_SENSORS);
+            new SensorTask().execute(ConstDroidEv3.CLOSE_SENSORS);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -152,7 +152,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new InfoTask().execute(ConstDroidEv3.OPEN_SENSORS);
+                        new SensorTask().execute(ConstDroidEv3.OPEN_SENSORS);
                     }
                 } else {
                     // The toggle is disabled
@@ -160,7 +160,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
                     if (droidEv3 != null) {
                         setVisibilityProgressBars(View.VISIBLE);
                         setVisibilityTextView(View.INVISIBLE);
-                        new InfoTask().execute(ConstDroidEv3.CLOSE_SENSORS);
+                        new SensorTask().execute(ConstDroidEv3.CLOSE_SENSORS);
                     }
                 }
             }
@@ -237,7 +237,7 @@ public class InfoFragment extends BaseFragment implements OnPowerInfo, View.OnCl
         irSensorTV.setText(text);
     }
 
-    private class InfoTask extends AsyncTask<String, Integer, Void> {
+    private class SensorTask extends AsyncTask<String, Integer, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
