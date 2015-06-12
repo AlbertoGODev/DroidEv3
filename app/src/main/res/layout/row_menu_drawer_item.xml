@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/navigation_drawer_width"
+    android:layout_height="72dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin_m"
+    android:paddingLeft="@dimen/margin_l"
+    android:paddingRight="@dimen/margin_l"
+    android:paddingTop="@dimen/margin_m">
+
+    <ImageView
+        android:id="@+id/row_menu_drawer_item_iv"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:src="@drawable/ic_text_to_speech"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:layout_marginLeft="@dimen/margin_l"
+        android:id="@+id/row_menu_drawer_item_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="Información"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+
+    <!--<IconTextView
+        android:gravity="end"
+        android:layout_marginLeft="@dimen/margin_m"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"
+        android:text="{fa-angle-right}"
+        android:shadowColor="#22000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:textSize="22dp"
+        android:textColor="@color/black" />-->
+</LinearLayout>

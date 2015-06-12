@@ -3,7 +3,26 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!--My margins-->
+    <dimen name="margin_s">4dp</dimen>
+    <dimen name="margin_m">8dp</dimen>
+    <dimen name="margin_l">16dp</dimen>
+    <dimen name="margin_xl">24dp</dimen>
+    <dimen name="margin_xxl">32dp</dimen>
+    
+    <!--Paddings-->
+    <dimen name="padding_l">12dp</dimen>
+    <dimen name="padding_m">6dp</dimen>
+    <dimen name="padding_s">2dp</dimen>
+    <dimen name="padding_xl">18dp</dimen>
+    <dimen name="padding_xs">4dp</dimen>
+    <dimen name="padding_xxl">28dp</dimen>
+
+    <dimen name="height_button">44dp</dimen>
+    <dimen name="start_img">256dp</dimen>
+
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="navigation_drawer_width">300dp</dimen>
+    <dimen name="navigation_drawer_header_height">128dp</dimen>
 </resources>

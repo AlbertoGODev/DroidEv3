@@ -3,6 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/btn_blue</item>
     </style>
 
+    <style name="btn_blue" parent="@style/Widget.AppCompat.Button">
+        <item name="android:layout_height">@dimen/height_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/btn_stroke</item>
+    </style>
 </resources>

@@ -5,33 +5,96 @@
     <string name="action_settings">Settings</string>
     <string name="connect">Conectar</string>
     <string name="connecting">Conectando</string>
+    <string name="disconnect">Desconectar</string>
     <string name="enter_ip">Introducir IP  ej: 10.0.0.1</string>
     <string name="test">Probando Droidev3</string>
     <string name="send">Enviar</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="search">Buscar</string>
+    <string name="searching">Buscando Ev3</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="disconnect_dialog">Se desconectará el robot, ¿está seguro?</string>
+
+    <!--Movements-->
+
+    <string name="stop">Detener</string>
+    <string name="forward">Adelante</string>
+    <string name="backward">Atrás</string>
+    <string name="left">Izquierda</string>
+    <string name="right">Derecha</string>
+    <string name="shoot">Disparar</string>
+    <string name="set_speed">Asignar velocidad</string>
 
     <!-- form error -->
     <string name="form_empty_field">Campo obligatorio</string>
     <string name="form_ip_error">Ip mal formada</string>
     <string name="form_connect_error">Fallo en la conexión</string>
     <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="form_ip_not_discover">No se ha encontrado esa IPv4</string>
+    <string name="form_ip_exception">Fallo en la conexión, vuelva a intentarlo más tarde</string>
+    <string name="form_brick_not_found">No se encontró ningún Ev3</string>
+    <string name="set_speed_error">La velocidad debe de estar entre 0 y 100</string>
 
     <!--Navigation Drawer-->
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Abrir menú lateral</string>
+    <string name="navigation_drawer_close">Cerrar menú lateral</string>
 
-    <string name="title_translate">Traductor</string>
-    <string name="title_joystick">Joystick</string>
-    <string name="title_info">Información</string>
+    <!--Drawer Header-->
+    <string name="my_name">Alberto García Olivero</string>
+    <string name="ip_v4">IPv4: 192.168.1.1</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- View Pager -->
+    <string name="title_strip_digital_joystick">Digital</string>
+    <string name="title_strip_analog_stick">Analógico</string>
 
-    <string name="action_example">Example action</string>
+    <!--Fragment Info-->
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="voltage_tv">Tensión de la batería:</string>
+    <string name="current_draw_tv">Consumo de corriente:</string>
+    <string name="touch_sensor_tv">Sensor táctil:</string>
+    <string name="color_sensor_tv">Sensor de color:</string>
+    <string name="ir_sensor_tv">Sensor IR:</string>
+    <string name="voltage">%1$d mV</string>
+    <string name="current_draw">%1$f Amps</string>
+    <string name="led_pattern">LED Pattern:</string>
+    <string name="sensors_status">Estado de los sensores:</string>
+    <string name="open_sensors">Abrir Sensores</string>
+    <string name="close_sensors">Cerrar Sensores</string>
+    <string name="about">Acerca De</string>
+    <string name="off">off</string>
+    <string name="sensors">Sensores</string>
+    <string name="values">Valores</string>
+    <string name="leds">Leds</string>
 
+    <!--Fragment To Speech-->
+
+    <string name="insert_text_here">Inserte su texto aquí</string>
+    <string name="to_speech">To speech</string>
+    <string name="language_info">Idioma Local : %1$s</string>
+
+
+    <!-- TODO: Remove or change this joystick text -->
+    <string name="front_lab">Adelante</string>
+    <string name="front_right_lab">Adelante Derecha</string>
+    <string name="right_lab">Derecha</string>
+    <string name="right_bottom_lab">Atrás Derecha</string>
+    <string name="bottom_lab">Atrás</string>
+    <string name="bottom_left_lab">Atrás Izquierda</string>
+    <string name="left_lab">Izquierda</string>
+    <string name="left_front_lab">Adelante Izquierda</string>
+    <string name="center_lab">Centro</string>
+    <string name="perfect_center_lab">Centro Perfecto</string>
+
+    <!--Colors Sensor-->
+    <string name="color_s_none">Ninguno</string>
+    <string name="color_s_red">Rojo</string>
+    <string name="color_s_green">Verde</string>
+    <string name="color_s_blue">Azul</string>
+    <string name="color_s_yellow">Amarillo</string>
+    <string name="color_s_white">Blanco</string>
+    <string name="color_s_black">Negro</string>
+    <string name="color_s_brown">Marrón</string>
 
 </resources>

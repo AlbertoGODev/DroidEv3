@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/angleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="angleTextView" />
+
+        <TextView
+            android:id="@+id/powerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="powerTextView" />
+
+        <TextView
+            android:id="@+id/directionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="directionTextView" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_analog_joystick_ll"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.guerritastudio.albertogarcia.droidev3.widget.JoystickView
+            android:id="@+id/joystickView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+        </com.guerritastudio.albertogarcia.droidev3.widget.JoystickView>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/fragment_analog_joystick_shoot_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="76dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp"
+        android:layout_toEndOf="@+id/fragment_analog_joystick_ll"
+        android:layout_toRightOf="@+id/fragment_analog_joystick_ll"
+        android:text="@string/shoot" />
+
+</RelativeLayout>
